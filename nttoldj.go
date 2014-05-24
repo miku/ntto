@@ -118,8 +118,9 @@ func applyRules(s string, rules []Rule) string {
 }
 
 func Convert(fileName string, rules []Rule) {
-	// lines will be sent down queue chan
+	// lines will be sent down queue channel
 	queue := make(chan *string)
+	// send triples down this channel
 	triples := make(chan *Triple)
 
 	// start writer
@@ -143,7 +144,6 @@ func Convert(fileName string, rules []Rule) {
 		}
 	}
 
-	// SCANNER
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		var line = scanner.Text()
@@ -162,7 +162,7 @@ func Convert(fileName string, rules []Rule) {
 	triples <- nil
 }
 
-// TripleWriter dumps a stream of triples to
+// TripleWriter dumps a stream of triples to json
 func TripleWriter(triples chan *Triple) {
 	var triple *Triple
 	for {
@@ -241,12 +241,15 @@ func main() {
 	http://dbpedia.org/ontology/PopulatedPlace/(.+)     dbpl:$1
 	http://dbpedia.org/ontology/(.+)                    dbpo:$1
 	http://www.w3.org/1999/02/22-rdf-syntax-ns#(.+)     rdf:$1
-    http://www.w3.org/2000/01/rdf-schema#(.+)           rdfs:$1
+	http://www.w3.org/2000/01/rdf-schema#(.+)           rdfs:$1
 	http://xmlns.com/foaf/0.1/(.+)                      foar:$1
 	http://purl.org/dc/elements/1.1/(.+)                dc:$1
 	`
 
 	rules := parseRules(table)
+
+	fmt.Fprintf(os.Stderr, "Using %d workers\n", runtime.NumCPU())
+	fmt.Fprintf(os.Stderr, "Loaded %d rewrite rules\n", len(rules))
 
 	if flag.NArg() != 1 {
 		fmt.Fprintf(os.Stderr, "Usage: %s FILE\n", os.Args[0])
