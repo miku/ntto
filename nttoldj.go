@@ -248,13 +248,14 @@ func main() {
 
 	rules := parseRules(table)
 
-	fmt.Fprintf(os.Stderr, "Using %d workers\n", runtime.NumCPU())
-	fmt.Fprintf(os.Stderr, "Loaded %d rewrite rules\n", len(rules))
-
 	if flag.NArg() != 1 {
 		fmt.Fprintf(os.Stderr, "Usage: %s FILE\n", os.Args[0])
 		os.Exit(1)
 	}
 	fileName := flag.Args()[0]
+
+	fmt.Fprintf(os.Stderr, "Using %d workers\n", runtime.NumCPU())
+	fmt.Fprintf(os.Stderr, "Loaded %d rewrite rules\n", len(rules))
+
 	Convert(fileName, rules)
 }
