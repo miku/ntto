@@ -6,6 +6,8 @@ README
 The MIME-Type for Line Delimited JSON is currently `application/x-ldjson`. Suggested
 file extensions are `.ldj` and `.ldjson`.
 
+[![Gobuild download](http://gobuild.io/badge/github.com/miku/nttoldj/download.png)](http://gobuild.io/download/github.com/miku/nttoldj)
+
 Usage
 -----
 
