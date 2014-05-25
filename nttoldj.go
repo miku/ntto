@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -11,6 +12,8 @@ import (
 	"runtime/pprof"
 	"strings"
 )
+
+const AppVersion = "1.0"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -20,7 +23,7 @@ type Triple struct {
 }
 
 type Rule struct {
-	Literal  string
+	Prefix   string
 	Shortcut string
 }
 
@@ -59,36 +62,33 @@ func stripChars(s string) string {
 }
 
 // parseString takes a string, parses out rules and returns them as slice
-func parseRules(s string) []Rule {
-	var rules []Rule
+func parseRules(s string) (rules []Rule, err error) {
 	for _, line := range strings.Split(s, "\n") {
 		line = strings.TrimSpace(line)
-		if len(line) == 0 {
+		if len(line) == 0 || strings.HasPrefix(line, "#") {
 			continue
 		}
 		fields := strings.Fields(line)
 		if len(fields) < 2 {
-			fmt.Fprintf(os.Stderr, "broken rules: %s", line)
-			os.Exit(1)
+			err = errors.New(fmt.Sprintf("broken rule: %s", line))
+			break
 		}
-		rule := Rule{Literal: fields[1], Shortcut: fields[0]}
-		rules = append(rules, rule)
+		rules = append(rules, Rule{Prefix: fields[1], Shortcut: fields[0]})
 	}
-	return rules
+	return
 }
 
 // applyRules takes a string and applies the rules
 func applyRules(s string, rules []Rule) string {
-	// could optimize this routine on the fly by JIT reordering the rules
 	for _, rule := range rules {
-		if strings.HasPrefix(s, rule.Literal) {
-			s = strings.Replace(s, rule.Literal, rule.Shortcut+":", -1)
+		if strings.HasPrefix(s, rule.Prefix) {
+			s = strings.Replace(s, rule.Prefix, rule.Shortcut+":", -1)
 		}
 	}
 	return s
 }
 
-func Convert(fileName string, rules []Rule, format string) {
+func Convert(fileName string, rules []Rule, format string) (err error) {
 	// lines will be sent down queue channel
 	queue := make(chan *string)
 	// send triples down this channel
@@ -102,8 +102,8 @@ func Convert(fileName string, rules []Rule, format string) {
 	} else if format == "tsv" {
 		go TSVTripleWriter(triples)
 	} else {
-		fmt.Fprintf(os.Stderr, "unknown format: %s\n", format)
-		os.Exit(1)
+		err = errors.New(fmt.Sprintf("unknown format: %s\n", format))
+		return
 	}
 
 	// start workers
@@ -115,12 +115,10 @@ func Convert(fileName string, rules []Rule, format string) {
 	if fileName == "-" {
 		file = os.Stdin
 	} else {
-		var err error
 		file, err = os.Open(fileName)
 		defer file.Close()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "no such file or directory\n")
-			os.Exit(1)
+			return
 		}
 	}
 
@@ -130,16 +128,16 @@ func Convert(fileName string, rules []Rule, format string) {
 		queue <- &line
 	}
 
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintf(os.Stderr, "reading input:", err)
-	}
+	err = scanner.Err()
 
 	// kill workers
 	for n := 0; n < runtime.NumCPU(); n++ {
 		queue <- nil
 	}
 	// kill writer
-	triples <- nil
+	close(triples)
+
+	return
 }
 
 // Worker converts NT to JSON
@@ -160,8 +158,9 @@ func Worker(id int, queue chan *string, triples chan *Triple, rules []Rule) {
 		var s, p, o string
 
 		if len(words) < 3 {
-			fmt.Fprintf(os.Stderr, "broken input:", trimmed)
+			fmt.Fprintf(os.Stderr, "broken input: %s\n", words)
 			os.Exit(1)
+			break
 		} else if len(words) == 4 || len(words) == 3 {
 			s = words[0]
 			p = words[1]
@@ -189,12 +188,7 @@ func Worker(id int, queue chan *string, triples chan *Triple, rules []Rule) {
 
 // JsonTripleWriter dumps a stream of triples to json
 func JsonTripleWriter(triples chan *Triple) {
-	var triple *Triple
-	for {
-		triple = <-triples
-		if triples == nil {
-			break
-		}
+	for triple := range triples {
 		b, err := json.Marshal(triple)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "marshalling error:", err)
@@ -206,12 +200,7 @@ func JsonTripleWriter(triples chan *Triple) {
 
 // XmlTripleWriter dumps a stream of triples to xml
 func XmlTripleWriter(triples chan *Triple) {
-	var triple *Triple
-	for {
-		triple = <-triples
-		if triples == nil {
-			break
-		}
+	for triple := range triples {
 		b, err := xml.Marshal(triple)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "marshalling error:", err)
@@ -222,14 +211,8 @@ func XmlTripleWriter(triples chan *Triple) {
 }
 
 func TSVTripleWriter(triples chan *Triple) {
-	var triple *Triple
-	for {
-		triple = <-triples
-		if triples == nil {
-			break
-		}
-		fmt.Printf("%s\t%s\t%s\n", triple.Subject, triple.Predicate,
-			triple.Object)
+	for triple := range triples {
+		fmt.Printf("%s\t%s\t%s\n", triple.Subject, triple.Predicate, triple.Object)
 	}
 }
 
@@ -239,6 +222,7 @@ func main() {
 	format := flag.String("f", "json", "output format (json, xml, tsv)")
 	abbreviate := flag.Bool("a", false, "abbreviate triples")
 	profile := flag.Bool("p", false, "cpu profile")
+	version := flag.Bool("v", false, "prints current version")
 
 	flag.Parse()
 
@@ -374,15 +358,28 @@ func main() {
 	zem http://s.zemanta.com/ns#
 	`
 
+	// slice of Rule holds the rewrite table
 	var rules []Rule
+	var err error
+
+	if *version {
+		fmt.Println(AppVersion)
+		os.Exit(0)
+	}
+
 	if *abbreviate {
-		rules = parseRules(table)
+		rules, err = parseRules(table)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s", err)
+			os.Exit(1)
+		}
 	}
 
 	if flag.NArg() != 1 {
 		fmt.Fprintf(os.Stderr, "Usage: %s FILE\n", os.Args[0])
 		os.Exit(1)
 	}
+
 	fileName := flag.Args()[0]
 	fmt.Fprintf(os.Stderr, "%d workers/%d rules\n", runtime.NumCPU(), len(rules))
 
@@ -396,7 +393,12 @@ func main() {
 		_ = pprof.StartCPUProfile(file)
 
 	}
-	Convert(fileName, rules, *format)
+
+	err = Convert(fileName, rules, *format)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
 
 	// profiling
 	if *profile {
