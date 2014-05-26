@@ -11,7 +11,6 @@ import (
 	"runtime"
 	"runtime/pprof"
 	"strings"
-	"time"
 )
 
 const AppVersion = "1.0.3"
