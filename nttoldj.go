@@ -221,25 +221,27 @@ func main() {
 	dbp http://dbpedia.org/resource/
 	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
 
-        # abbreviates dbpo:wikiPageWikiLink to dbpow:Link
-        dbpow http://dbpedia.org/ontology/wikiPageWiki
-        # abbreviate things like wikiPageRedirects to dbpowp:Redirects
-        dbpowp   http://dbpedia.org/ontology/wikiPage
+	# abbreviates dbpo:wikiPageWikiLink to dbpow:Link
+	dbpow http://dbpedia.org/ontology/wikiPageWiki
+
+	# abbreviate things like wikiPageRedirects to dbpowp:Redirects
+	dbpowp   http://dbpedia.org/ontology/wikiPage
 	
 	dbpo http://dbpedia.org/ontology/
 	dbpp http://dbpedia.org/property/
 
 	foaf    http://xmlns.com/foaf/0.1/
 	rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
-	rdfa    http://www.w3.org/ns/rdfa#
-	rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
 	rdfs    http://www.w3.org/2000/01/rdf-schema#
+	schema      http://schema.org/
 	dc  http://purl.org/dc/elements/1.1/
 	dcterms http://purl.org/dc/terms/
+
+	rdfa    http://www.w3.org/ns/rdfa#
+	rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
 	umbel   http://umbel.org/umbel#
 	umbel-ac    http://umbel.org/umbel/ac/
 	umbel-sc    http://umbel.org/umbel/sc/
-	schema      http://schema.org/
 
 	a   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
