@@ -49,7 +49,7 @@ Performance
     $ wc -l labels_en.nt
     10141501
 
-    $ time go run nttoldj.go -a labels_en.nt > labels_en.json
+    $ time go run nttoldj.go -a labels_en.nt > labels_en.ldj
     4 workers/126 rules
 
     real    1m43.030s
@@ -62,7 +62,7 @@ Performance
     $ wc -l page_links_en.nt
     172308906
 
-    $ time nttoldj -a page_links_en.nt > page_links_en.json
+    $ time nttoldj -a page_links_en.nt > page_links_en.ldj
     4 workers/127 rules
 
     real    23m37.956s
@@ -75,7 +75,7 @@ Performance
     $ wc -l page_links_en.nt
     172308906
 
-    $ time nttoldj -a page_links_en.nt > page_links_en.json
+    $ time nttoldj -a page_links_en.nt > page_links_en.ldj
     8 workers/127 rules
 
     real    27m40.641s
