@@ -235,6 +235,7 @@ func main() {
 	umbel   http://umbel.org/umbel#
 	umbel-ac    http://umbel.org/umbel/ac/
 	umbel-sc    http://umbel.org/umbel/sc/
+	schema      http://schema.org/
 
 	a   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
