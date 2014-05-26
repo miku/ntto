@@ -86,3 +86,6 @@ Performance
     real    27m40.641s
     user    74m51.975s
     sys     20m14.763s
+
+Converting about 500M triples with diverse prefixes takes less than two hours.
+
