@@ -43,7 +43,7 @@ func isLiteralLanguage(s, language string) bool {
 	if !strings.Contains(s, "@") {
 		return true
 	} else {
-		return strings.HasSuffix(s, "@"+language)
+		return strings.Contains(s, "@"+language)
 	}
 }
 
