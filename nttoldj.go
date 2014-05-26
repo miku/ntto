@@ -233,7 +233,6 @@ func main() {
 
 	# dbpedia languages (more below)
 	dbp.de   http://de.dbpedia.org/resource/
-	dbp.fr   http://fr.dbpedia.org/resource/
 
 	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
 
@@ -258,6 +257,7 @@ func main() {
 	prov    http://www.w3.org/ns/prov#
 
 	# more dbpedia languages w/ > 100k pages
+	dbp.fr   http://fr.dbpedia.org/resource/
 	dbp.en   http://en.dbpedia.org/resource/
 	dbp.es   http://es.dbpedia.org/resource/
 	dbp.it   http://it.dbpedia.org/resource/
@@ -299,6 +299,50 @@ func main() {
 	dbp.ms   http://ms.dbpedia.org/resource/
 	dbp.hi   http://hi.dbpedia.org/resource/
 	dbp.sh   http://sh.dbpedia.org/resource/
+
+	dbpwp.de   http://de.dbpedia.org/property/wikiPage
+	dbpwp.fr   http://fr.dbpedia.org/property/wikiPage
+	dbpwp.en   http://en.dbpedia.org/property/wikiPage
+	dbpwp.es   http://es.dbpedia.org/property/wikiPage
+	dbpwp.it   http://it.dbpedia.org/property/wikiPage
+	dbpwp.nl   http://nl.dbpedia.org/property/wikiPage
+	dbpwp.ru   http://ru.dbpedia.org/property/wikiPage
+	dbpwp.sv   http://sv.dbpedia.org/property/wikiPage
+	dbpwp.pl   http://pl.dbpedia.org/property/wikiPage
+	dbpwp.ja   http://ja.dbpedia.org/property/wikiPage
+	dbpwp.pt   http://pt.dbpedia.org/property/wikiPage
+	dbpwp.ar   http://ar.dbpedia.org/property/wikiPage
+	dbpwp.zh   http://zh.dbpedia.org/property/wikiPage
+	dbpwp.uk   http://uk.dbpedia.org/property/wikiPage
+	dbpwp.ca   http://ca.dbpedia.org/property/wikiPage
+	dbpwp.no   http://no.dbpedia.org/property/wikiPage
+	dbpwp.fi   http://fi.dbpedia.org/property/wikiPage
+	dbpwp.cs   http://cs.dbpedia.org/property/wikiPage
+	dbpwp.hu   http://hu.dbpedia.org/property/wikiPage
+	dbpwp.tr   http://tr.dbpedia.org/property/wikiPage
+	dbpwp.ro   http://ro.dbpedia.org/property/wikiPage
+	dbpwp.sw   http://sw.dbpedia.org/property/wikiPage
+	dbpwp.ko   http://ko.dbpedia.org/property/wikiPage
+	dbpwp.kk   http://kk.dbpedia.org/property/wikiPage
+	dbpwp.vi   http://vi.dbpedia.org/property/wikiPage
+	dbpwp.da   http://da.dbpedia.org/property/wikiPage
+	dbpwp.eo   http://eo.dbpedia.org/property/wikiPage
+	dbpwp.sr   http://sr.dbpedia.org/property/wikiPage
+	dbpwp.id   http://id.dbpedia.org/property/wikiPage
+	dbpwp.lt   http://lt.dbpedia.org/property/wikiPage
+	dbpwp.vo   http://vo.dbpedia.org/property/wikiPage
+	dbpwp.sk   http://sk.dbpedia.org/property/wikiPage
+	dbpwp.he   http://he.dbpedia.org/property/wikiPage
+	dbpwp.fa   http://fa.dbpedia.org/property/wikiPage
+	dbpwp.bg   http://bg.dbpedia.org/property/wikiPage
+	dbpwp.sl   http://sl.dbpedia.org/property/wikiPage
+	dbpwp.eu   http://eu.dbpedia.org/property/wikiPage
+	dbpwp.war   http://war.dbpedia.org/property/wikiPage
+	dbpwp.et   http://et.dbpedia.org/property/wikiPage
+	dbpwp.hr   http://hr.dbpedia.org/property/wikiPage
+	dbpwp.ms   http://ms.dbpedia.org/property/wikiPage
+	dbpwp.hi   http://hi.dbpedia.org/property/wikiPage
+	dbpwp.sh   http://sh.dbpedia.org/property/wikiPage
 
 	atom   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
