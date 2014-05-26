@@ -220,6 +220,8 @@ func main() {
 	table := `
 	dbp http://dbpedia.org/resource/
 	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
+    # abbreviates dbpo:wikiPageWikiLink to dbpow:Link
+    dbpow http://dbpedia.org/ontology/wikiPageWiki
 	dbpo http://dbpedia.org/ontology/
 	dbpp http://dbpedia.org/property/
 
