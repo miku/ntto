@@ -85,5 +85,5 @@ Performance
     user    74m51.975s
     sys     20m14.763s
 
-Converting about 500M triples with diverse prefixes takes less more than two hours.
+Converting about 500M triples with diverse prefixes takes less than two hours.
 
