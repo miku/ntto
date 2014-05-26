@@ -48,9 +48,36 @@ Performance
     $ # i5/SDD
     $ wc -l labels_en.nt
     10141501
+
     $ time go run nttoldj.go -a labels_en.nt > labels_en.json
     4 workers/126 rules
 
     real    1m43.030s
     user    5m3.715s
     sys     0m57.915s
+
+----
+
+    $ # i5/HDD
+    $ wc -l page_links_en.nt
+    172308906
+
+    $ time nttoldj -a page_links_en.nt > page_links_en.json
+    4 workers/127 rules
+
+    real    23m37.956s
+    user    51m56.732s
+    sys     6m0.088s
+
+----
+
+    $ # Xeon/HDD
+    $ wc -l page_links_en.nt
+    172308906
+
+    $ time nttoldj -a page_links_en.nt > page_links_en.json
+    8 workers/127 rules
+
+    real    27m40.641s
+    user    74m51.975s
+    sys     20m14.763s
