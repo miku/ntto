@@ -11,9 +11,10 @@ import (
 	"runtime"
 	"runtime/pprof"
 	"strings"
+	"time"
 )
 
-const AppVersion = "1.0"
+const AppVersion = "1.0.1"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -43,7 +44,7 @@ func isNamedNode(s string) bool {
 	return strings.HasPrefix(s, "_:")
 }
 
-// stripChars makes s, p, o strings unembellished
+// stripChars makes s, p, o strings "unembellished"
 func stripChars(s string) string {
 	if isURIRef(s) {
 		s = strings.Trim(s, "<>")
@@ -61,7 +62,7 @@ func stripChars(s string) string {
 	return s
 }
 
-// parseString takes a string, parses out rules and returns them as slice
+// parseRules takes a string, parses out rules and returns them as slice
 func parseRules(s string) (rules []Rule, err error) {
 	for _, line := range strings.Split(s, "\n") {
 		line = strings.TrimSpace(line)
@@ -108,7 +109,7 @@ func Convert(fileName string, rules []Rule, format string) (err error) {
 
 	// start workers
 	for i := 0; i < runtime.NumCPU(); i++ {
-		go Worker(i, queue, triples, rules)
+		go Worker(queue, triples, rules)
 	}
 
 	var file *os.File
@@ -134,18 +135,17 @@ func Convert(fileName string, rules []Rule, format string) (err error) {
 	for n := 0; n < runtime.NumCPU(); n++ {
 		queue <- nil
 	}
-	// kill writer
 	close(triples)
-
 	return
 }
 
-// Worker converts NT to JSON
-func Worker(id int, queue chan *string, triples chan *Triple, rules []Rule) {
+// Worker converts NTriple to triples and sends them on the triples channel
+func Worker(queue chan *string, triples chan *Triple, rules []Rule) {
 	var line *string
 	for {
 		line = <-queue
 		if line == nil {
+			time.Sleep(1000 * time.Millisecond)
 			break
 		}
 		trimmed := strings.TrimSpace(*line)
@@ -181,8 +181,7 @@ func Worker(id int, queue chan *string, triples chan *Triple, rules []Rule) {
 		p = applyRules(p, rules)
 		o = applyRules(o, rules)
 
-		triple := Triple{Subject: s, Predicate: p, Object: o}
-		triples <- &triple
+		triples <- &Triple{Subject: s, Predicate: p, Object: o}
 	}
 }
 
@@ -217,15 +216,6 @@ func TSVTripleWriter(triples chan *Triple) {
 }
 
 func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-
-	format := flag.String("f", "json", "output format (json, xml, tsv)")
-	abbreviate := flag.Bool("a", false, "abbreviate triples")
-	profile := flag.Bool("p", false, "cpu profile")
-	version := flag.Bool("v", false, "prints current version")
-
-	flag.Parse()
-
 	// TODO: allow this to be read from file
 	table := `
 	dbp http://dbpedia.org/resource/
@@ -358,6 +348,15 @@ func main() {
 	zem http://s.zemanta.com/ns#
 	`
 
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	format := flag.String("f", "json", "output format (json, xml, tsv)")
+	abbreviate := flag.Bool("a", false, "abbreviate triples")
+	profile := flag.Bool("p", false, "cpu profile")
+	version := flag.Bool("v", false, "prints current version and exits")
+
+	flag.Parse()
+
 	// slice of Rule holds the rewrite table
 	var rules []Rule
 	var err error
@@ -391,7 +390,6 @@ func main() {
 			os.Exit(1)
 		}
 		_ = pprof.StartCPUProfile(file)
-
 	}
 
 	err = Convert(fileName, rules, *format)
