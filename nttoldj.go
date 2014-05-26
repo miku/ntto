@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const AppVersion = "1.0.2"
+const AppVersion = "1.0.3"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
