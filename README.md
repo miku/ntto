@@ -1,7 +1,7 @@
 README
 ======
 
-`nttoldj` converts N-Triples into Line Delimited JSON.
+`nttoldj` converts N-Triples into Line Delimited JSON and optionally applies prefix abbreviations.
 
 The MIME-Type for Line Delimited JSON is currently `application/x-ldjson`.
 Suggested file extensions are `.ldj` and `.ldjson`.
