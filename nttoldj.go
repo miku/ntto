@@ -362,7 +362,7 @@ func main() {
 	format := flag.String("f", "json", "output format (json, xml, tsv)")
 	abbreviate := flag.Bool("a", false, "abbreviate triples")
 	profile := flag.Bool("p", false, "cpu profile")
-	dumpRules := flag.Bool("d", false, "dump rules as TSV")
+	dumpRules := flag.Bool("d", false, "dump rules as TSV to stdout")
 	version := flag.Bool("v", false, "prints current version and exits")
 
 	flag.Parse()
