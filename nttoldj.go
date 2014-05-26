@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.6"
+const AppVersion = "1.0.7"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -353,6 +353,50 @@ func main() {
 	dbpwp.ms   http://ms.dbpedia.org/property/wikiPage
 	dbpwp.hi   http://hi.dbpedia.org/property/wikiPage
 	dbpwp.sh   http://sh.dbpedia.org/property/wikiPage
+
+	dbpp.de   http://de.dbpedia.org/property/
+	dbpp.fr   http://fr.dbpedia.org/property/
+	dbpp.en   http://en.dbpedia.org/property/
+	dbpp.es   http://es.dbpedia.org/property/
+	dbpp.it   http://it.dbpedia.org/property/
+	dbpp.nl   http://nl.dbpedia.org/property/
+	dbpp.ru   http://ru.dbpedia.org/property/
+	dbpp.sv   http://sv.dbpedia.org/property/
+	dbpp.pl   http://pl.dbpedia.org/property/
+	dbpp.ja   http://ja.dbpedia.org/property/
+	dbpp.pt   http://pt.dbpedia.org/property/
+	dbpp.ar   http://ar.dbpedia.org/property/
+	dbpp.zh   http://zh.dbpedia.org/property/
+	dbpp.uk   http://uk.dbpedia.org/property/
+	dbpp.ca   http://ca.dbpedia.org/property/
+	dbpp.no   http://no.dbpedia.org/property/
+	dbpp.fi   http://fi.dbpedia.org/property/
+	dbpp.cs   http://cs.dbpedia.org/property/
+	dbpp.hu   http://hu.dbpedia.org/property/
+	dbpp.tr   http://tr.dbpedia.org/property/
+	dbpp.ro   http://ro.dbpedia.org/property/
+	dbpp.sw   http://sw.dbpedia.org/property/
+	dbpp.ko   http://ko.dbpedia.org/property/
+	dbpp.kk   http://kk.dbpedia.org/property/
+	dbpp.vi   http://vi.dbpedia.org/property/
+	dbpp.da   http://da.dbpedia.org/property/
+	dbpp.eo   http://eo.dbpedia.org/property/
+	dbpp.sr   http://sr.dbpedia.org/property/
+	dbpp.id   http://id.dbpedia.org/property/
+	dbpp.lt   http://lt.dbpedia.org/property/
+	dbpp.vo   http://vo.dbpedia.org/property/
+	dbpp.sk   http://sk.dbpedia.org/property/
+	dbpp.he   http://he.dbpedia.org/property/
+	dbpp.fa   http://fa.dbpedia.org/property/
+	dbpp.bg   http://bg.dbpedia.org/property/
+	dbpp.sl   http://sl.dbpedia.org/property/
+	dbpp.eu   http://eu.dbpedia.org/property/
+	dbpp.war   http://war.dbpedia.org/property/
+	dbpp.et   http://et.dbpedia.org/property/
+	dbpp.hr   http://hr.dbpedia.org/property/
+	dbpp.ms   http://ms.dbpedia.org/property/
+	dbpp.hi   http://hi.dbpedia.org/property/
+	dbpp.sh   http://sh.dbpedia.org/property/
 
 	atom   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
