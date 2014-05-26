@@ -122,13 +122,15 @@ func Convert(fileName string, rules []Rule, format string) (err error) {
 		}
 	}
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		var line = scanner.Text()
-		queue <- &line
+    reader := bufio.NewReader(file)
+    for {
+	b, _, err := reader.ReadLine()
+	if err != nil || b == nil {
+	    break
 	}
-
-	err = scanner.Err()
+	line := string(b)
+	queue <- &line
+    }
 
 	// kill workers
 	for n := 0; n < runtime.NumCPU(); n++ {
