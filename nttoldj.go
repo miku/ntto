@@ -362,6 +362,7 @@ func main() {
 	format := flag.String("f", "json", "output format (json, xml, tsv)")
 	abbreviate := flag.Bool("a", false, "abbreviate triples")
 	profile := flag.Bool("p", false, "cpu profile")
+	dumpRules := flag.Bool("d", false, "dump rules as TSV")
 	version := flag.Bool("v", false, "prints current version and exits")
 
 	flag.Parse()
@@ -372,6 +373,18 @@ func main() {
 
 	if *version {
 		fmt.Println(AppVersion)
+		os.Exit(0)
+	}
+
+	if *dumpRules {
+		rules, err = parseRules(table)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s", err)
+			os.Exit(1)
+		}
+		for _, rule := range rules {
+			fmt.Printf("%s\t%s\n", rule.Shortcut, rule.Prefix)
+		}
 		os.Exit(0)
 	}
 
