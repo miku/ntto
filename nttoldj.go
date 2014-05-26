@@ -145,7 +145,6 @@ func Worker(queue chan *string, triples chan *Triple, rules []Rule) {
 	for {
 		line = <-queue
 		if line == nil {
-			time.Sleep(1000 * time.Millisecond)
 			break
 		}
 		trimmed := strings.TrimSpace(*line)
