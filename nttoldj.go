@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.4"
+const AppVersion = "1.0.5"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -37,6 +37,14 @@ func isURIRef(s string) bool {
 
 func isLiteral(s string) bool {
 	return strings.HasPrefix(s, "\"")
+}
+
+func isLiteralLanguage(s, language string) bool {
+	if !strings.Contains(s, "@") {
+		return true
+	} else {
+		return strings.HasSuffix(s, "@"+language)
+	}
 }
 
 func isNamedNode(s string) bool {
@@ -88,7 +96,7 @@ func applyRules(s string, rules []Rule) string {
 	return s
 }
 
-func Convert(fileName string, rules []Rule, format string) (err error) {
+func Convert(fileName string, rules []Rule, format, language string) (err error) {
 	// lines will be sent down queue channel
 	queue := make(chan *string)
 	// send triples down this channel
@@ -108,7 +116,7 @@ func Convert(fileName string, rules []Rule, format string) (err error) {
 
 	// start workers
 	for i := 0; i < runtime.NumCPU(); i++ {
-		go Worker(queue, triples, rules)
+		go Worker(queue, triples, rules, language)
 	}
 
 	var file *os.File
@@ -141,7 +149,7 @@ func Convert(fileName string, rules []Rule, format string) (err error) {
 }
 
 // Worker converts NTriple to triples and sends them on the triples channel
-func Worker(queue chan *string, triples chan *Triple, rules []Rule) {
+func Worker(queue chan *string, triples chan *Triple, rules []Rule, language string) {
 	var line *string
 	for {
 		line = <-queue
@@ -170,6 +178,9 @@ func Worker(queue chan *string, triples chan *Triple, rules []Rule) {
 			s = words[0]
 			p = words[1]
 			o = strings.Join(words[2:len(words)-1], " ")
+		}
+		if language != "" && !isLiteralLanguage(o, language) {
+			continue
 		}
 		// make things clean
 		s = stripChars(s)
@@ -365,6 +376,7 @@ func main() {
 	profile := flag.Bool("p", false, "cpu profile")
 	dumpRules := flag.Bool("d", false, "dump rules as TSV to stdout")
 	version := flag.Bool("v", false, "prints current version and exits")
+	language := flag.String("l", "", "only keep literals of the given language")
 
 	flag.Parse()
 
@@ -415,7 +427,7 @@ func main() {
 		_ = pprof.StartCPUProfile(file)
 	}
 
-	err = Convert(fileName, rules, *format)
+	err = Convert(fileName, rules, *format, *language)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 		os.Exit(1)
