@@ -230,10 +230,12 @@ func main() {
 	// TODO: allow this to be read from file
 	table := `
 	dbp http://dbpedia.org/resource/
-	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
 
-	# abbreviates dbpo:wikiPageWikiLink to dbpow:Link
-	dbpow http://dbpedia.org/ontology/wikiPageWiki
+	# dbpedia languages (more below)
+	dbp.de   http://de.dbpedia.org/resource
+	dbp.fr   http://fr.dbpedia.org/resource
+
+	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
 
 	# abbreviate things like wikiPageRedirects to dbpowp:Redirects
 	dbpowp   http://dbpedia.org/ontology/wikiPage
@@ -254,6 +256,49 @@ func main() {
 	umbel-ac    http://umbel.org/umbel/ac/
 	umbel-sc    http://umbel.org/umbel/sc/
 	prov    http://www.w3.org/ns/prov#
+
+	# more dbpedia languages w/ > 100k pages
+	dbp.en   http://en.dbpedia.org/resource
+	dbp.es   http://es.dbpedia.org/resource
+	dbp.it   http://it.dbpedia.org/resource
+	dbp.nl   http://nl.dbpedia.org/resource
+	dbp.ru   http://ru.dbpedia.org/resource
+	dbp.sv   http://sv.dbpedia.org/resource
+	dbp.pl   http://pl.dbpedia.org/resource
+	dbp.ja   http://ja.dbpedia.org/resource
+	dbp.pt   http://pt.dbpedia.org/resource
+	dbp.ar   http://ar.dbpedia.org/resource
+	dbp.zh   http://zh.dbpedia.org/resource
+	dbp.uk   http://uk.dbpedia.org/resource
+	dbp.ca   http://ca.dbpedia.org/resource
+	dbp.no   http://no.dbpedia.org/resource
+	dbp.fi   http://fi.dbpedia.org/resource
+	dbp.cs   http://cs.dbpedia.org/resource
+	dbp.hu   http://hu.dbpedia.org/resource
+	dbp.tr   http://tr.dbpedia.org/resource
+	dbp.ro   http://ro.dbpedia.org/resource
+	dbp.sw   http://sw.dbpedia.org/resource
+	dbp.ko   http://ko.dbpedia.org/resource
+	dbp.kk   http://kk.dbpedia.org/resource
+	dbp.vi   http://vi.dbpedia.org/resource
+	dbp.da   http://da.dbpedia.org/resource
+	dbp.eo   http://eo.dbpedia.org/resource
+	dbp.sr   http://sr.dbpedia.org/resource
+	dbp.id   http://id.dbpedia.org/resource
+	dbp.lt   http://lt.dbpedia.org/resource
+	dbp.vo   http://vo.dbpedia.org/resource
+	dbp.sk   http://sk.dbpedia.org/resource
+	dbp.he   http://he.dbpedia.org/resource
+	dbp.fa   http://fa.dbpedia.org/resource
+	dbp.bg   http://bg.dbpedia.org/resource
+	dbp.sl   http://sl.dbpedia.org/resource
+	dbp.eu   http://eu.dbpedia.org/resource
+	dbp.war   http://war.dbpedia.org/resource
+	dbp.et   http://et.dbpedia.org/resource
+	dbp.hr   http://hr.dbpedia.org/resource
+	dbp.ms   http://ms.dbpedia.org/resource
+	dbp.hi   http://hi.dbpedia.org/resource
+	dbp.sh   http://sh.dbpedia.org/resource
 
 	a   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
