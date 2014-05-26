@@ -96,7 +96,11 @@ func applyRules(s string, rules []Rule) string {
 	return s
 }
 
-func Convert(fileName string, rules []Rule, format, language string) (err error) {
+func Convert(fileName string,
+	rules []Rule,
+	format string,
+	language string,
+	ignore bool) (err error) {
 	// lines will be sent down queue channel
 	queue := make(chan *string)
 	// send triples down this channel
@@ -116,7 +120,7 @@ func Convert(fileName string, rules []Rule, format, language string) (err error)
 
 	// start workers
 	for i := 0; i < runtime.NumCPU(); i++ {
-		go Worker(queue, triples, rules, language)
+		go Worker(queue, triples, rules, language, ignore)
 	}
 
 	var file *os.File
@@ -149,7 +153,11 @@ func Convert(fileName string, rules []Rule, format, language string) (err error)
 }
 
 // Worker converts NTriple to triples and sends them on the triples channel
-func Worker(queue chan *string, triples chan *Triple, rules []Rule, language string) {
+func Worker(queue chan *string,
+	triples chan *Triple,
+	rules []Rule,
+	language string,
+	ignore bool) {
 	var line *string
 	for {
 		line = <-queue
@@ -167,8 +175,10 @@ func Worker(queue chan *string, triples chan *Triple, rules []Rule, language str
 
 		if len(words) < 3 {
 			fmt.Fprintf(os.Stderr, "broken input: %s\n", words)
-			os.Exit(1)
-			break
+			if !ignore {
+				os.Exit(1)
+				break
+			}
 		} else if len(words) == 4 || len(words) == 3 {
 			s = words[0]
 			p = words[1]
@@ -465,6 +475,7 @@ func main() {
 	profile := flag.Bool("p", false, "cpu profile")
 	dumpRules := flag.Bool("d", false, "dump rules as TSV to stdout")
 	version := flag.Bool("v", false, "prints current version and exits")
+	ignore := flag.Bool("i", false, "ignore any conversion error")
 	language := flag.String("l", "", "only keep literals of the given language")
 
 	flag.Parse()
@@ -516,7 +527,7 @@ func main() {
 		_ = pprof.StartCPUProfile(file)
 	}
 
-	err = Convert(fileName, rules, *format, *language)
+	err = Convert(fileName, rules, *format, *language, *ignore)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 		os.Exit(1)
