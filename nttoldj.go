@@ -232,8 +232,8 @@ func main() {
 	dbp http://dbpedia.org/resource/
 
 	# dbpedia languages (more below)
-	dbp.de   http://de.dbpedia.org/resource
-	dbp.fr   http://fr.dbpedia.org/resource
+	dbp.de   http://de.dbpedia.org/resource/
+	dbp.fr   http://fr.dbpedia.org/resource/
 
 	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
 
@@ -258,55 +258,55 @@ func main() {
 	prov    http://www.w3.org/ns/prov#
 
 	# more dbpedia languages w/ > 100k pages
-	dbp.en   http://en.dbpedia.org/resource
-	dbp.es   http://es.dbpedia.org/resource
-	dbp.it   http://it.dbpedia.org/resource
-	dbp.nl   http://nl.dbpedia.org/resource
-	dbp.ru   http://ru.dbpedia.org/resource
-	dbp.sv   http://sv.dbpedia.org/resource
-	dbp.pl   http://pl.dbpedia.org/resource
-	dbp.ja   http://ja.dbpedia.org/resource
-	dbp.pt   http://pt.dbpedia.org/resource
-	dbp.ar   http://ar.dbpedia.org/resource
-	dbp.zh   http://zh.dbpedia.org/resource
-	dbp.uk   http://uk.dbpedia.org/resource
-	dbp.ca   http://ca.dbpedia.org/resource
-	dbp.no   http://no.dbpedia.org/resource
-	dbp.fi   http://fi.dbpedia.org/resource
-	dbp.cs   http://cs.dbpedia.org/resource
-	dbp.hu   http://hu.dbpedia.org/resource
-	dbp.tr   http://tr.dbpedia.org/resource
-	dbp.ro   http://ro.dbpedia.org/resource
-	dbp.sw   http://sw.dbpedia.org/resource
-	dbp.ko   http://ko.dbpedia.org/resource
-	dbp.kk   http://kk.dbpedia.org/resource
-	dbp.vi   http://vi.dbpedia.org/resource
-	dbp.da   http://da.dbpedia.org/resource
-	dbp.eo   http://eo.dbpedia.org/resource
-	dbp.sr   http://sr.dbpedia.org/resource
-	dbp.id   http://id.dbpedia.org/resource
-	dbp.lt   http://lt.dbpedia.org/resource
-	dbp.vo   http://vo.dbpedia.org/resource
-	dbp.sk   http://sk.dbpedia.org/resource
-	dbp.he   http://he.dbpedia.org/resource
-	dbp.fa   http://fa.dbpedia.org/resource
-	dbp.bg   http://bg.dbpedia.org/resource
-	dbp.sl   http://sl.dbpedia.org/resource
-	dbp.eu   http://eu.dbpedia.org/resource
-	dbp.war   http://war.dbpedia.org/resource
-	dbp.et   http://et.dbpedia.org/resource
-	dbp.hr   http://hr.dbpedia.org/resource
-	dbp.ms   http://ms.dbpedia.org/resource
-	dbp.hi   http://hi.dbpedia.org/resource
-	dbp.sh   http://sh.dbpedia.org/resource
+	dbp.en   http://en.dbpedia.org/resource/
+	dbp.es   http://es.dbpedia.org/resource/
+	dbp.it   http://it.dbpedia.org/resource/
+	dbp.nl   http://nl.dbpedia.org/resource/
+	dbp.ru   http://ru.dbpedia.org/resource/
+	dbp.sv   http://sv.dbpedia.org/resource/
+	dbp.pl   http://pl.dbpedia.org/resource/
+	dbp.ja   http://ja.dbpedia.org/resource/
+	dbp.pt   http://pt.dbpedia.org/resource/
+	dbp.ar   http://ar.dbpedia.org/resource/
+	dbp.zh   http://zh.dbpedia.org/resource/
+	dbp.uk   http://uk.dbpedia.org/resource/
+	dbp.ca   http://ca.dbpedia.org/resource/
+	dbp.no   http://no.dbpedia.org/resource/
+	dbp.fi   http://fi.dbpedia.org/resource/
+	dbp.cs   http://cs.dbpedia.org/resource/
+	dbp.hu   http://hu.dbpedia.org/resource/
+	dbp.tr   http://tr.dbpedia.org/resource/
+	dbp.ro   http://ro.dbpedia.org/resource/
+	dbp.sw   http://sw.dbpedia.org/resource/
+	dbp.ko   http://ko.dbpedia.org/resource/
+	dbp.kk   http://kk.dbpedia.org/resource/
+	dbp.vi   http://vi.dbpedia.org/resource/
+	dbp.da   http://da.dbpedia.org/resource/
+	dbp.eo   http://eo.dbpedia.org/resource/
+	dbp.sr   http://sr.dbpedia.org/resource/
+	dbp.id   http://id.dbpedia.org/resource/
+	dbp.lt   http://lt.dbpedia.org/resource/
+	dbp.vo   http://vo.dbpedia.org/resource/
+	dbp.sk   http://sk.dbpedia.org/resource/
+	dbp.he   http://he.dbpedia.org/resource/
+	dbp.fa   http://fa.dbpedia.org/resource/
+	dbp.bg   http://bg.dbpedia.org/resource/
+	dbp.sl   http://sl.dbpedia.org/resource/
+	dbp.eu   http://eu.dbpedia.org/resource/
+	dbp.war   http://war.dbpedia.org/resource/
+	dbp.et   http://et.dbpedia.org/resource/
+	dbp.hr   http://hr.dbpedia.org/resource/
+	dbp.ms   http://ms.dbpedia.org/resource/
+	dbp.hi   http://hi.dbpedia.org/resource/
+	dbp.sh   http://sh.dbpedia.org/resource/
 
-	a   http://www.w3.org/2005/Atom
+	atom   http://www.w3.org/2005/Atom
 	address http://schemas.talis.com/2005/address/schema#
 	admin   http://webns.net/mvcb/
 	atom    http://atomowl.org/ontologies/atomrdf#
 	aws http://soap.amazon.com/
 	b3s http://b3s.openlinksw.com/
-	batch   http://schemas.google.com/gdata/batch
+	batch   http://schemas.google.com/gdata/batch/
 	bibo    http://purl.org/ontology/bibo/
 	bugzilla    http://www.openlinksw.com/schemas/bugzilla#
 	c   http://www.w3.org/2002/12/cal/icaltzd#
@@ -323,25 +323,25 @@ func main() {
 	exif    http://www.w3.org/2003/12/exif/ns/
 	fb  http://api.facebook.com/1.0/
 	fbase   http://rdf.freebase.com/ns/
-	ff  http://api.friendfeed.com/2008/03
+	ff  http://api.friendfeed.com/2008/03/
 	fn  http://www.w3.org/2005/xpath-functions/#
-	g   http://base.google.com/ns/1.0
+	g   http://base.google.com/ns/1.0/
 	gb  http://www.openlinksw.com/schemas/google-base#
-	gd  http://schemas.google.com/g/2005
+	gd  http://schemas.google.com/g/2005/
 	geo http://www.w3.org/2003/01/geo/wgs84_pos#
 	geonames    http://www.geonames.org/ontology#
-	georss  http://www.georss.org/georss
-	gml http://www.opengis.net/gml
+	georss  http://www.georss.org/georss/
+	gml http://www.opengis.net/gml/
 	go  http://purl.org/obo/owl/GO#
 	grs http://www.georss.org/georss/
 	hlisting    http://www.openlinksw.com/schemas/hlisting/
 	hoovers http://wwww.hoovers.com/
 	hrev    http:/www.purl.org/stuff/hrev#
 	ical    http://www.w3.org/2002/12/cal/ical#
-	ir  http://web-semantics.org/ns/image-regions
+	ir  http://web-semantics.org/ns/image-regions/
 	itunes  http://www.itunes.com/DTDs/Podcast-1.0.dtd
 	lgv http://linkedgeodata.org/vocabulary#
-	link    http://www.xbrl.org/2003/linkbase
+	link    http://www.xbrl.org/2003/linkbase/
 	lod http://lod.openlinksw.com/
 	math    http://www.w3.org/2000/10/swap/math#
 	media   http://search.yahoo.com/mrss/
@@ -370,7 +370,7 @@ func main() {
 	owl http://www.w3.org/2002/07/owl#
 	product http://www.buy.com/rss/module/productV2/
 	protseq http://purl.org/science/protein/bysequence/
-	r   http://backend.userland.com/rss2
+	r   http://backend.userland.com/rss2/
 	radio   http://www.radiopop.co.uk/
 	rev http://purl.org/stuff/rev#
 	review  http:/www.purl.org/stuff/rev#
@@ -390,27 +390,27 @@ func main() {
 	vcard   http://www.w3.org/2001/vcard-rdf/3.0#
 	vcard2006   http://www.w3.org/2006/vcard/ns#
 	vi  http://www.openlinksw.com/virtuoso/xslt/
-	virt    http://www.openlinksw.com/virtuoso/xslt
+	virt    http://www.openlinksw.com/virtuoso/xslt/
 	virtcxml    http://www.openlinksw.com/schemas/virtcxml#
 	virtrdf http://www.openlinksw.com/schemas/virtrdf#
 	void    http://rdfs.org/ns/void#
 	wb  http://www.worldbank.org/
 	wf  http://www.w3.org/2005/01/wf/flow#
 	wfw http://wellformedweb.org/CommentAPI/
-	xf  http://www.w3.org/2004/07/xpath-functions
+	xf  http://www.w3.org/2004/07/xpath-functions/
 	xfn http://gmpg.org/xfn/11#
-	xhtml   http://www.w3.org/1999/xhtml
+	xhtml   http://www.w3.org/1999/xhtml/
 	xhv http://www.w3.org/1999/xhtml/vocab#
-	xi  http://www.xbrl.org/2003/instance
-	xml http://www.w3.org/XML/1998/namespace
-	xn  http://www.ning.com/atom/1.0
+	xi  http://www.xbrl.org/2003/instance/
+	xml http://www.w3.org/XML/1998/namespace/
+	xn  http://www.ning.com/atom/1.0/
 	xsd http://www.w3.org/2001/XMLSchema#
 	xsl10   http://www.w3.org/XSL/Transform/1.0
-	xsl1999 http://www.w3.org/1999/XSL/Transform
-	xslwd   http://www.w3.org/TR/WD-xsl
+	xsl1999 http://www.w3.org/1999/XSL/Transform/
+	xslwd   http://www.w3.org/TR/WD-xsl/
 	y   urn:yahoo:maps
 	yago    http://dbpedia.org/class/yago/
-	yt  http://gdata.youtube.com/schemas/2007
+	yt  http://gdata.youtube.com/schemas/2007/
 	zem http://s.zemanta.com/ns#
 	`
 
