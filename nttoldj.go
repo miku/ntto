@@ -267,8 +267,10 @@ func main() {
 	fbase.cd   http://rdf.freebase.com/ns/common.document.
 	fbase.ci   http://rdf.freebase.com/ns/common.image.
 	fbase.cl   http://rdf.freebase.com/ns/common.licensed_object.
+	fbase.cn   http://rdf.freebase.com/ns/common.notable_for.
 	fbase.ct   http://rdf.freebase.com/ns/common.topic.
 	fbase.cw   http://rdf.freebase.com/ns/common.webpage.
+	fbase.dg   http://rdf.freebase.com/ns/dataworld.gardening_hint.
 	fbase.dp   http://rdf.freebase.com/ns/freebase.domain_profile.
 	fbase.ee   http://rdf.freebase.com/ns/education.education.
 	fbase.ff   http://rdf.freebase.com/ns/fictional_universe.fictional_character.
@@ -276,17 +278,20 @@ func main() {
 	fbase.gp   http://rdf.freebase.com/ns/government.political_district.
 	fbase.ll   http://rdf.freebase.com/ns/location.location.
 	fbase.mr   http://rdf.freebase.com/ns/measurement_unit.rect_size.
+	fbase.md   http://rdf.freebase.com/ns/measurement_unit.dated_float.
+	fbase.oo   http://rdf.freebase.com/ns/organization.organization.
 	fbase.pp   http://rdf.freebase.com/ns/people.person.
 	fbase.rc   http://rdf.freebase.com/ns/royalty.chivalric_order_membership.
 	fbase.tc   http://rdf.freebase.com/ns/type.content.
 	fbase.to   http://rdf.freebase.com/ns/type.object.
+
 
 	# freebase 2
 	fbase.m   http://rdf.freebase.com/ns/music.
 
 	# generic freebase
 	fbase   http://rdf.freebase.com/ns/
-	fbasekey   http://rdf.freebase.com/key
+	fbasekey   http://rdf.freebase.com/key/
 
 	rdfa    http://www.w3.org/ns/rdfa#
 	rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
