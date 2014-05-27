@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.8"
+const AppVersion = "1.0.9"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -248,6 +248,7 @@ func main() {
 	do.wp   http://dbpedia.org/ontology/wikiPage
 	
 	do http://dbpedia.org/ontology/
+	dp.wp   http://dbpedia.org/property/wikiPage
 	dp http://dbpedia.org/property/
 
 	foaf    http://xmlns.com/foaf/0.1/
