@@ -267,6 +267,7 @@ func main() {
 	exif    http://www.w3.org/2003/12/exif/ns/
 	fb  http://api.facebook.com/1.0/
 	fbase   http://rdf.freebase.com/ns/
+    fbasekey   http://rdf.freebase.com/key
 	ff  http://api.friendfeed.com/2008/03
 	fn  http://www.w3.org/2005/xpath-functions/#
 	g   http://base.google.com/ns/1.0
