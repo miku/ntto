@@ -259,12 +259,42 @@ func main() {
 	dc  http://purl.org/dc/elements/1.1/
 	dcterms http://purl.org/dc/terms/
 
+	# freebase
+	fbase.aa   http://rdf.freebase.com/ns/award.award_honor.
+	fbase.ba   http://rdf.freebase.com/ns/base.articleindices.
+	fbase.be   http://rdf.freebase.com/ns/business.employment_tenure.
+	fbase.br   http://rdf.freebase.com/ns/base.rosetta.
+	fbase.cd   http://rdf.freebase.com/ns/common.document.
+	fbase.ci   http://rdf.freebase.com/ns/common.image.
+	fbase.cl   http://rdf.freebase.com/ns/common.licensed_object.
+	fbase.ct   http://rdf.freebase.com/ns/common.topic.
+	fbase.cw   http://rdf.freebase.com/ns/common.webpage.
+	fbase.dp   http://rdf.freebase.com/ns/freebase.domain_profile.
+	fbase.ee   http://rdf.freebase.com/ns/education.education.
+	fbase.ff   http://rdf.freebase.com/ns/fictional_universe.fictional_character.
+	fbase.fv   http://rdf.freebase.com/ns/freebase.valuenotation.
+	fbase.gp   http://rdf.freebase.com/ns/government.political_district.
+	fbase.ll   http://rdf.freebase.com/ns/location.location.
+	fbase.mr   http://rdf.freebase.com/ns/measurement_unit.rect_size.
+	fbase.pp   http://rdf.freebase.com/ns/people.person.
+	fbase.rc   http://rdf.freebase.com/ns/royalty.chivalric_order_membership.
+	fbase.tc   http://rdf.freebase.com/ns/type.content.
+	fbase.to   http://rdf.freebase.com/ns/type.object.
+
+	# freebase 2
+	fbase.m   http://rdf.freebase.com/ns/music.
+
+	# generic freebase
+	fbase   http://rdf.freebase.com/ns/
+	fbasekey   http://rdf.freebase.com/key
+
 	rdfa    http://www.w3.org/ns/rdfa#
 	rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
 	umbel   http://umbel.org/umbel#
 	umbel-ac    http://umbel.org/umbel/ac/
 	umbel-sc    http://umbel.org/umbel/sc/
 	prov    http://www.w3.org/ns/prov#
+
 
 	# more dbpedia languages w/ > 100k pages
 	dbp.fr   http://fr.dbpedia.org/resource/
@@ -420,8 +450,7 @@ func main() {
 	enc http://purl.oclc.org/net/rss_2.0/enc#
 	exif    http://www.w3.org/2003/12/exif/ns/
 	fb  http://api.facebook.com/1.0/
-	fbase   http://rdf.freebase.com/ns/
-    fbasekey   http://rdf.freebase.com/key
+
 	ff  http://api.friendfeed.com/2008/03
 	fn  http://www.w3.org/2005/xpath-functions/#
 	g   http://base.google.com/ns/1.0/
