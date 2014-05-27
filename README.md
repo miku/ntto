@@ -15,8 +15,10 @@ Usage
       -a=false: abbreviate triples
       -d=false: dump rules as TSV to stdout
       -f="json": output format (json, xml, tsv)
+      -l="": only keep literals of the given language
       -p=false: cpu profile
       -v=false: prints current version and exits
+
 
 
 Prefix rewriting
