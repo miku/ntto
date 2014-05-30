@@ -29,23 +29,35 @@ large amount of triples. Storing common prefixes over and over again
 is redundant. Rewriting prefixes can save huge amounts of space and increase
 the overall performance of the data store.
 
-There are over hundred rewrite rules (hardcoded):
+There are a few hundred rewrite rules (hardcoded for now):
 
-    dbp http://dbpedia.org/resource/
-    dbpopp http://dbpedia.org/ontology/PopulatedPlace/
-    dbpo http://dbpedia.org/ontology/
-    dbpp http://dbpedia.org/property/
+    d http://dbpedia.org/resource/
+
+    # dbpedia languages (more below)
+    d.de   http://de.dbpedia.org/resource/
+
+    do.pp http://dbpedia.org/ontology/PopulatedPlace/
+    do.wp   http://dbpedia.org/ontology/wikiPage
+
+    do http://dbpedia.org/ontology/
+    dp.wp   http://dbpedia.org/property/wikiPage
+    dp http://dbpedia.org/property/
+
+    gnd          http://d-nb.info/gnd/
+    dnb.es       http://d-nb.info/standards/elementset/gnd#
+    dnb.area     http://d-nb.info/standards/vocab/gnd/geographic-area-code#
+    dnb.voc      http://d-nb.info/standards/vocab/gnd/
+
+    viaf    http://viaf.org/viaf/
+
     foaf    http://xmlns.com/foaf/0.1/
     rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
-    rdfa    http://www.w3.org/ns/rdfa#
-    rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
     rdfs    http://www.w3.org/2000/01/rdf-schema#
+    schema      http://schema.org/
     dc  http://purl.org/dc/elements/1.1/
     dcterms http://purl.org/dc/terms/
-    umbel   http://umbel.org/umbel#
-    umbel-ac    http://umbel.org/umbel/ac/
-    umbel-sc    http://umbel.org/umbel/sc/
     ...
+
 
 Performance
 -----------
