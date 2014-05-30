@@ -32,13 +32,10 @@ the overall performance of the data store.
 There are a few hundred rewrite rules (hardcoded for now):
 
     d        http://dbpedia.org/resource/
-
     # dbpedia languages (more below)
     d.de     http://de.dbpedia.org/resource/
-
     do.pp    http://dbpedia.org/ontology/PopulatedPlace/
     do.wp    http://dbpedia.org/ontology/wikiPage
-
     do       http://dbpedia.org/ontology/
     dp.wp    http://dbpedia.org/property/wikiPage
     dp       http://dbpedia.org/property/
