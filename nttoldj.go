@@ -257,6 +257,7 @@ func main() {
 	dnb.voc      http://d-nb.info/standards/vocab/gnd/
 
 	viaf    http://viaf.org/viaf/
+	frbr    http://rdvocab.info/uri/schema/FRBRentitiesRDA/
 
 	foaf    http://xmlns.com/foaf/0.1/
 	rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
