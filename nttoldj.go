@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.9"
+const AppVersion = "1.0.10"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -253,6 +253,8 @@ func main() {
 
 	gnd     http://d-nb.info/gnd/
 	dnb     http://d-nb.info/standards/elementset/gnd#
+	viaf    http://viaf.org/viaf/
+
 	foaf    http://xmlns.com/foaf/0.1/
 	rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
 	rdfs    http://www.w3.org/2000/01/rdf-schema#
