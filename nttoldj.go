@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.10"
+const AppVersion = "1.0.11"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -251,8 +251,11 @@ func main() {
 	dp.wp   http://dbpedia.org/property/wikiPage
 	dp http://dbpedia.org/property/
 
-	gnd     http://d-nb.info/gnd/
-	dnb     http://d-nb.info/standards/elementset/gnd#
+	gnd          http://d-nb.info/gnd/
+	dnb.es       http://d-nb.info/standards/elementset/gnd#
+	dnb.area     http://d-nb.info/standards/vocab/gnd/geographic-area-code#
+	dnb.voc      http://d-nb.info/standards/vocab/gnd/
+
 	viaf    http://viaf.org/viaf/
 
 	foaf    http://xmlns.com/foaf/0.1/
