@@ -25,7 +25,7 @@ Prefix rewriting
 ----------------
 
 One use case for LDJ formatted N-Triples is the need to index or store
-large amount of triples. Storing common prefixes over and over again
+large amount of triples. Storing common prefixes (namespaces) over and over again
 is redundant. Rewriting prefixes can save huge amounts of space and increase
 the overall performance of the data store.
 
