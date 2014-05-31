@@ -257,6 +257,7 @@ func main() {
 	dnb.voc      http://d-nb.info/standards/vocab/gnd/
 
 	viaf    http://viaf.org/viaf/
+	# viafas  http://viaf.org/authorityScheme
 	frbr    http://rdvocab.info/uri/schema/FRBRentitiesRDA/
 	rdgr    http://rdvocab.info/ElementsGr2/
 
