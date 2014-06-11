@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.11"
+const AppVersion = "1.0.12"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -329,6 +329,9 @@ func main() {
 	umbel-sc    http://umbel.org/umbel/sc/
 	prov    http://www.w3.org/ns/prov#
 
+	# wikidata
+	wd  http://www.wikidata.org/entity/
+	wdo http://www.wikidata.org/ontology#
 
 	# more dbpedia languages w/ > 100k pages
 	d.fr   http://fr.dbpedia.org/resource/
