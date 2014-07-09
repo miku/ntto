@@ -347,7 +347,7 @@ func main() {
 	# f.tt   http://rdf.freebase.com/ns/type.type.
 
 	# freebase 2
-	// f.m   http://rdf.freebase.com/ns/music.
+	# f.m   http://rdf.freebase.com/ns/music.
 
 	# generic freebase
 	fb      http://rdf.freebase.com/ns/
