@@ -52,9 +52,11 @@ func isNamedNode(s string) bool {
 }
 
 // stripChars makes s, p, o strings "unembellished"
-func stripChars(s string) string {
+func stripChars(s string, format string) string {
 	if isURIRef(s) {
-		s = strings.Trim(s, "<>")
+		if format == "json" || format == "xml" {
+			s = strings.Trim(s, "<>")
+		}
 	} else if isLiteral(s) {
 		if strings.Contains(s, "@") {
 			parts := strings.Split(s, "@")
@@ -64,7 +66,9 @@ func stripChars(s string) string {
 			parts := strings.Split(s, "^^")
 			s = strings.Join(parts[:len(parts)-1], "")
 		}
-		s = strings.Trim(s, "\"")
+		if format == "json" || format == "xml" {
+			s = strings.Trim(s, "\"")
+		}
 	}
 	return s
 }
@@ -87,10 +91,22 @@ func parseRules(s string) (rules []Rule, err error) {
 }
 
 // applyRules takes a string and applies the rules
-func applyRules(s string, rules []Rule) string {
+func applyRulesPlain(s string, rules []Rule) string {
 	for _, rule := range rules {
 		if strings.HasPrefix(s, rule.Prefix) {
 			s = strings.Replace(s, rule.Prefix, rule.Shortcut+":", -1)
+
+		}
+	}
+	return s
+}
+
+// applyRules takes a string and applies the rules
+func applyRules(s string, rules []Rule) string {
+	for _, rule := range rules {
+		if strings.HasPrefix(s, "<"+rule.Prefix) {
+			s = strings.Replace(s, "<"+rule.Prefix, "<"+rule.Shortcut+":", -1)
+
 		}
 	}
 	return s
@@ -113,6 +129,8 @@ func Convert(fileName string,
 		go XmlTripleWriter(triples)
 	} else if format == "tsv" {
 		go TSVTripleWriter(triples)
+	} else if format == "nt" {
+		go NTripleWriter(triples)
 	} else {
 		err = errors.New(fmt.Sprintf("unknown format: %s\n", format))
 		return
@@ -120,7 +138,7 @@ func Convert(fileName string,
 
 	// start workers
 	for i := 0; i < runtime.NumCPU(); i++ {
-		go Worker(queue, triples, rules, language, ignore)
+		go Worker(queue, triples, rules, language, ignore, format)
 	}
 
 	var file *os.File
@@ -157,7 +175,8 @@ func Worker(queue chan *string,
 	triples chan *Triple,
 	rules []Rule,
 	language string,
-	ignore bool) {
+	ignore bool,
+	format string) {
 	var line *string
 	for {
 		line = <-queue
@@ -193,14 +212,20 @@ func Worker(queue chan *string,
 			continue
 		}
 		// make things clean
-		s = stripChars(s)
-		p = stripChars(p)
-		o = stripChars(o)
+		s = stripChars(s, format)
+		p = stripChars(p, format)
+		o = stripChars(o, format)
 
 		// make things short
-		s = applyRules(s, rules)
-		p = applyRules(p, rules)
-		o = applyRules(o, rules)
+		if format == "json" || format == "xml" {
+			s = applyRulesPlain(s, rules)
+			p = applyRulesPlain(p, rules)
+			o = applyRulesPlain(o, rules)
+		} else {
+			s = applyRules(s, rules)
+			p = applyRules(p, rules)
+			o = applyRules(o, rules)
+		}
 
 		triples <- &Triple{Subject: s, Predicate: p, Object: o}
 	}
@@ -233,6 +258,12 @@ func XmlTripleWriter(triples chan *Triple) {
 func TSVTripleWriter(triples chan *Triple) {
 	for triple := range triples {
 		fmt.Printf("%s\t%s\t%s\n", triple.Subject, triple.Predicate, triple.Object)
+	}
+}
+
+func NTripleWriter(triples chan *Triple) {
+	for triple := range triples {
+		fmt.Printf("%s %s %s .\n", triple.Subject, triple.Predicate, triple.Object)
 	}
 }
 
