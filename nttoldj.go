@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "1.0.12"
+const AppVersion = "1.0.13"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
