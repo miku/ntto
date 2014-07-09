@@ -354,7 +354,6 @@ func main() {
 	fbkey   http://rdf.freebase.com/key/
 
 	rdfa    http://www.w3.org/ns/rdfa#
-	virtrdf   http://www.openlinksw.com/virtrdf-data-formats#
 	umbel   http://umbel.org/umbel#
 	umbelac    http://umbel.org/umbel/ac/
 	umbelsc    http://umbel.org/umbel/sc/
@@ -498,7 +497,7 @@ func main() {
 
 	address http://schemas.talis.com/2005/address/schema#
 	admin   http://webns.net/mvcb/
-	atom    http://atomowl.org/ontologies/atomrdf#
+	atomowl    http://atomowl.org/ontologies/atomrdf#
 	atom   http://www.w3.org/2005/Atom
 	aws http://soap.amazon.com/
 	b3s http://b3s.openlinksw.com/
@@ -581,13 +580,13 @@ func main() {
 	twfy    http://www.openlinksw.com/schemas/twfy#
 	uniprot http://purl.uniprot.org/
 	usc http://www.rdfabout.com/rdf/schema/uscensus/details/100pct/
-	v   http://www.openlinksw.com/xsltext/
 	vcard   http://www.w3.org/2001/vcard-rdf/3.0#
 	vcard2006   http://www.w3.org/2006/vcard/ns#
-	vi  http://www.openlinksw.com/virtuoso/xslt/
-	virt    http://www.openlinksw.com/virtuoso/xslt/
 	virtcxml    http://www.openlinksw.com/schemas/virtcxml#
 	virtrdf http://www.openlinksw.com/schemas/virtrdf#
+	virtvdf   http://www.openlinksw.com/virtrdf-data-formats#
+	virtxslt  http://www.openlinksw.com/virtuoso/xslt/
+	virtxsltext   http://www.openlinksw.com/xsltext/
 	void    http://rdfs.org/ns/void#
 	wb  http://www.worldbank.org/
 	wf  http://www.w3.org/2005/01/wf/flow#
