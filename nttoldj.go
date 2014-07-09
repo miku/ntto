@@ -270,22 +270,22 @@ func NTripleWriter(triples chan *Triple) {
 func main() {
 	// TODO: allow this to be read from file
 	table := `
-	d http://dbpedia.org/resource/
+	dbp http://dbpedia.org/resource/
 
 	# dbpedia languages (more below)
-	d.de   http://de.dbpedia.org/resource/
+	dbpde   http://de.dbpedia.org/resource/
 
-	do.pp http://dbpedia.org/ontology/PopulatedPlace/
-	do.wp   http://dbpedia.org/ontology/wikiPage
+	dbpopp http://dbpedia.org/ontology/PopulatedPlace/
+	dbpowp   http://dbpedia.org/ontology/wikiPage
 	
-	do http://dbpedia.org/ontology/
-	dp.wp   http://dbpedia.org/property/wikiPage
-	dp http://dbpedia.org/property/
+	dbpo http://dbpedia.org/ontology/
+	dbppwp   http://dbpedia.org/property/wikiPage
+	dbpp http://dbpedia.org/property/
 
 	gnd          http://d-nb.info/gnd/
-	dnb.es       http://d-nb.info/standards/elementset/gnd#
-	dnb.area     http://d-nb.info/standards/vocab/gnd/geographic-area-code#
-	dnb.voc      http://d-nb.info/standards/vocab/gnd/
+	dnbes       http://d-nb.info/standards/elementset/gnd#
+	dnbac     http://d-nb.info/standards/vocab/gnd/geographic-area-code#
+	dnbv      http://d-nb.info/standards/vocab/gnd/
 
 	viaf    http://viaf.org/viaf/
 	# viafas  http://viaf.org/authorityScheme
@@ -300,64 +300,64 @@ func main() {
 	dcterms http://purl.org/dc/terms/
 
 	# freebase
-	f.aa   http://rdf.freebase.com/ns/award.award_honor.
-	f.ba   http://rdf.freebase.com/ns/base.articleindices.
-	f.bb   http://rdf.freebase.com/ns/business.board_member.
-	f.bc   http://rdf.freebase.com/ns/business.consumer_product.
-	f.be   http://rdf.freebase.com/ns/business.employment_tenure.
-	f.br   http://rdf.freebase.com/ns/base.rosetta.
-	f.bss.fc   http://rdf.freebase.com/ns/base.schemastaging.food_concept.
-	f.bss.ni   http://rdf.freebase.com/ns/base.schemastaging.nutrition_information.
-	f.cd   http://rdf.freebase.com/ns/common.document.
-	f.cid   http://rdf.freebase.com/ns/common.identity.
-	f.cimg   http://rdf.freebase.com/ns/common.image.
-	f.cl   http://rdf.freebase.com/ns/common.licensed_object.
-	f.cn   http://rdf.freebase.com/ns/common.notable_for.
-	f.ct   http://rdf.freebase.com/ns/common.topic.
-	f.cw   http://rdf.freebase.com/ns/common.webpage.
-	f.dg   http://rdf.freebase.com/ns/dataworld.gardening_hint.
-	f.dm   http://rdf.freebase.com/ns/dataworld.mass_data_operation.
-	f.dp   http://rdf.freebase.com/ns/freebase.domain_profile.
-	f.ee   http://rdf.freebase.com/ns/education.education.
-	f.ff   http://rdf.freebase.com/ns/fictional_universe.fictional_character.
-	f.fv   http://rdf.freebase.com/ns/freebase.valuenotation.
-	f.fo   http://rdf.freebase.com/ns/freebase.object_hints.
-	f.mediacat   http://rdf.freebase.com/ns/media_common.cataloged_instance.
-	f.gp   http://rdf.freebase.com/ns/government.political_district.
-	f.ll   http://rdf.freebase.com/ns/location.location.
-	f.lm   http://rdf.freebase.com/ns/location.mailing_address.
-	f.med   http://rdf.freebase.com/ns/medicine.
-	f.medd   http://rdf.freebase.com/ns/medicine.disease.
-	f.medmdf   http://rdf.freebase.com/ns/medicine.manufactured_drug_form.
-	f.meds   http://rdf.freebase.com/ns/medicine.symptom.
-	f.mu   http://rdf.freebase.com/ns/measurement_unit.
-	f.mudf  http://rdf.freebase.com/ns/measurement_unit.dated_float.
-	f.mudi  http://rdf.freebase.com/ns/measurement_unit.dated_integer.
-	f.mudmv http://rdf.freebase.com/ns/measurement_unit.dated_money_value.
-	f.mumr  http://rdf.freebase.com/ns/measurement_unit.monetary_range.
-	f.murs   http://rdf.freebase.com/ns/measurement_unit.rect_size.
-	f.oo   http://rdf.freebase.com/ns/organization.organization.
-	f.pp   http://rdf.freebase.com/ns/people.person.
-	f.psls http://rdf.freebase.com/ns/protected_sites.listed_site.
-	f.psnocsl http://rdf.freebase.com/ns/protected_sites.natural_or_cultural_site_listing.
-	f.rc   http://rdf.freebase.com/ns/royalty.chivalric_order_membership.
-	f.sp   http://rdf.freebase.com/ns/sports.pro_athlete.
-	f.tc   http://rdf.freebase.com/ns/type.content.
-	f.to   http://rdf.freebase.com/ns/type.object.
-	f.tt   http://rdf.freebase.com/ns/type.type.
+	# fb.aa   http://rdf.freebase.com/ns/award.award_honor.
+	# fb.ba   http://rdf.freebase.com/ns/base.articleindices.
+	# f.bb   http://rdf.freebase.com/ns/business.board_member.
+	# f.bc   http://rdf.freebase.com/ns/business.consumer_product.
+	# f.be   http://rdf.freebase.com/ns/business.employment_tenure.
+	# f.br   http://rdf.freebase.com/ns/base.rosetta.
+	# f.bss.fc   http://rdf.freebase.com/ns/base.schemastaging.food_concept.
+	# f.bss.ni   http://rdf.freebase.com/ns/base.schemastaging.nutrition_information.
+	# f.cd   http://rdf.freebase.com/ns/common.document.
+	# f.cid   http://rdf.freebase.com/ns/common.identity.
+	# f.cimg   http://rdf.freebase.com/ns/common.image.
+	# f.cl   http://rdf.freebase.com/ns/common.licensed_object.
+	# f.cn   http://rdf.freebase.com/ns/common.notable_for.
+	# f.ct   http://rdf.freebase.com/ns/common.topic.
+	# f.cw   http://rdf.freebase.com/ns/common.webpage.
+	# f.dg   http://rdf.freebase.com/ns/dataworld.gardening_hint.
+	# f.dm   http://rdf.freebase.com/ns/dataworld.mass_data_operation.
+	# f.dp   http://rdf.freebase.com/ns/freebase.domain_profile.
+	# f.ee   http://rdf.freebase.com/ns/education.education.
+	# f.ff   http://rdf.freebase.com/ns/fictional_universe.fictional_character.
+	# f.fv   http://rdf.freebase.com/ns/freebase.valuenotation.
+	# f.fo   http://rdf.freebase.com/ns/freebase.object_hints.
+	# f.mediacat   http://rdf.freebase.com/ns/media_common.cataloged_instance.
+	# f.gp   http://rdf.freebase.com/ns/government.political_district.
+	# f.ll   http://rdf.freebase.com/ns/location.location.
+	# f.lm   http://rdf.freebase.com/ns/location.mailing_address.
+	# f.med   http://rdf.freebase.com/ns/medicine.
+	# f.medd   http://rdf.freebase.com/ns/medicine.disease.
+	# f.medmdf   http://rdf.freebase.com/ns/medicine.manufactured_drug_form.
+	# f.meds   http://rdf.freebase.com/ns/medicine.symptom.
+	# f.mu   http://rdf.freebase.com/ns/measurement_unit.
+	# f.mudf  http://rdf.freebase.com/ns/measurement_unit.dated_float.
+	# f.mudi  http://rdf.freebase.com/ns/measurement_unit.dated_integer.
+	# f.mudmv http://rdf.freebase.com/ns/measurement_unit.dated_money_value.
+	# f.mumr  http://rdf.freebase.com/ns/measurement_unit.monetary_range.
+	# f.murs   http://rdf.freebase.com/ns/measurement_unit.rect_size.
+	# f.oo   http://rdf.freebase.com/ns/organization.organization.
+	# f.pp   http://rdf.freebase.com/ns/people.person.
+	# f.psls http://rdf.freebase.com/ns/protected_sites.listed_site.
+	# f.psnocsl http://rdf.freebase.com/ns/protected_sites.natural_or_cultural_site_listing.
+	# f.rc   http://rdf.freebase.com/ns/royalty.chivalric_order_membership.
+	# f.sp   http://rdf.freebase.com/ns/sports.pro_athlete.
+	# f.tc   http://rdf.freebase.com/ns/type.content.
+	# f.to   http://rdf.freebase.com/ns/type.object.
+	# f.tt   http://rdf.freebase.com/ns/type.type.
 
 	# freebase 2
-	f.m   http://rdf.freebase.com/ns/music.
+	// f.m   http://rdf.freebase.com/ns/music.
 
 	# generic freebase
-	f      http://rdf.freebase.com/ns/
-	fkey   http://rdf.freebase.com/key/
+	fb      http://rdf.freebase.com/ns/
+	fbkey   http://rdf.freebase.com/key/
 
 	rdfa    http://www.w3.org/ns/rdfa#
-	rdfdf   http://www.openlinksw.com/virtrdf-data-formats#
+	virtrdf   http://www.openlinksw.com/virtrdf-data-formats#
 	umbel   http://umbel.org/umbel#
-	umbel-ac    http://umbel.org/umbel/ac/
-	umbel-sc    http://umbel.org/umbel/sc/
+	umbelac    http://umbel.org/umbel/ac/
+	umbelsc    http://umbel.org/umbel/sc/
 	prov    http://www.w3.org/ns/prov#
 
 	# wikidata
@@ -365,136 +365,136 @@ func main() {
 	wdo http://www.wikidata.org/ontology#
 
 	# more dbpedia languages w/ > 100k pages
-	d.fr   http://fr.dbpedia.org/resource/
-	d.en   http://en.dbpedia.org/resource/
-	d.es   http://es.dbpedia.org/resource/
-	d.it   http://it.dbpedia.org/resource/
-	d.nl   http://nl.dbpedia.org/resource/
-	d.ru   http://ru.dbpedia.org/resource/
-	d.sv   http://sv.dbpedia.org/resource/
-	d.pl   http://pl.dbpedia.org/resource/
-	d.ja   http://ja.dbpedia.org/resource/
-	d.pt   http://pt.dbpedia.org/resource/
-	d.ar   http://ar.dbpedia.org/resource/
-	d.zh   http://zh.dbpedia.org/resource/
-	d.uk   http://uk.dbpedia.org/resource/
-	d.ca   http://ca.dbpedia.org/resource/
-	d.no   http://no.dbpedia.org/resource/
-	d.fi   http://fi.dbpedia.org/resource/
-	d.cs   http://cs.dbpedia.org/resource/
-	d.hu   http://hu.dbpedia.org/resource/
-	d.tr   http://tr.dbpedia.org/resource/
-	d.ro   http://ro.dbpedia.org/resource/
-	d.sw   http://sw.dbpedia.org/resource/
-	d.ko   http://ko.dbpedia.org/resource/
-	d.kk   http://kk.dbpedia.org/resource/
-	d.vi   http://vi.dbpedia.org/resource/
-	d.da   http://da.dbpedia.org/resource/
-	d.eo   http://eo.dbpedia.org/resource/
-	d.sr   http://sr.dbpedia.org/resource/
-	d.id   http://id.dbpedia.org/resource/
-	d.lt   http://lt.dbpedia.org/resource/
-	d.vo   http://vo.dbpedia.org/resource/
-	d.sk   http://sk.dbpedia.org/resource/
-	d.he   http://he.dbpedia.org/resource/
-	d.fa   http://fa.dbpedia.org/resource/
-	d.bg   http://bg.dbpedia.org/resource/
-	d.sl   http://sl.dbpedia.org/resource/
-	d.eu   http://eu.dbpedia.org/resource/
-	d.war   http://war.dbpedia.org/resource/
-	d.et   http://et.dbpedia.org/resource/
-	d.hr   http://hr.dbpedia.org/resource/
-	d.ms   http://ms.dbpedia.org/resource/
-	d.hi   http://hi.dbpedia.org/resource/
-	d.sh   http://sh.dbpedia.org/resource/
+	dbpfr   http://fr.dbpedia.org/resource/
+	dbpen   http://en.dbpedia.org/resource/
+	dbpes   http://es.dbpedia.org/resource/
+	dbpit   http://it.dbpedia.org/resource/
+	dbpnl   http://nl.dbpedia.org/resource/
+	dbpru   http://ru.dbpedia.org/resource/
+	dbpsv   http://sv.dbpedia.org/resource/
+	dbppl   http://pl.dbpedia.org/resource/
+	dbpja   http://ja.dbpedia.org/resource/
+	dbppt   http://pt.dbpedia.org/resource/
+	dbpar   http://ar.dbpedia.org/resource/
+	dbpzh   http://zh.dbpedia.org/resource/
+	dbpuk   http://uk.dbpedia.org/resource/
+	dbpca   http://ca.dbpedia.org/resource/
+	dbpno   http://no.dbpedia.org/resource/
+	dbpfi   http://fi.dbpedia.org/resource/
+	dbpcs   http://cs.dbpedia.org/resource/
+	dbphu   http://hu.dbpedia.org/resource/
+	dbptr   http://tr.dbpedia.org/resource/
+	dbpro   http://ro.dbpedia.org/resource/
+	dbpsw   http://sw.dbpedia.org/resource/
+	dbpko   http://ko.dbpedia.org/resource/
+	dbpkk   http://kk.dbpedia.org/resource/
+	dbpvi   http://vi.dbpedia.org/resource/
+	dbpda   http://da.dbpedia.org/resource/
+	dbpeo   http://eo.dbpedia.org/resource/
+	dbpsr   http://sr.dbpedia.org/resource/
+	dbpid   http://id.dbpedia.org/resource/
+	dbplt   http://lt.dbpedia.org/resource/
+	dbpvo   http://vo.dbpedia.org/resource/
+	dbpsk   http://sk.dbpedia.org/resource/
+	dbphe   http://he.dbpedia.org/resource/
+	dbpfa   http://fa.dbpedia.org/resource/
+	dbpbg   http://bg.dbpedia.org/resource/
+	dbpsl   http://sl.dbpedia.org/resource/
+	dbpeu   http://eu.dbpedia.org/resource/
+	dbpwar   http://war.dbpedia.org/resource/
+	dbpet   http://et.dbpedia.org/resource/
+	dbphr   http://hr.dbpedia.org/resource/
+	dbpms   http://ms.dbpedia.org/resource/
+	dbphi   http://hi.dbpedia.org/resource/
+	dbpsh   http://sh.dbpedia.org/resource/
 
-	dwp.de   http://de.dbpedia.org/property/wikiPage
-	dwp.fr   http://fr.dbpedia.org/property/wikiPage
-	dwp.en   http://en.dbpedia.org/property/wikiPage
-	dwp.es   http://es.dbpedia.org/property/wikiPage
-	dwp.it   http://it.dbpedia.org/property/wikiPage
-	dwp.nl   http://nl.dbpedia.org/property/wikiPage
-	dwp.ru   http://ru.dbpedia.org/property/wikiPage
-	dwp.sv   http://sv.dbpedia.org/property/wikiPage
-	dwp.pl   http://pl.dbpedia.org/property/wikiPage
-	dwp.ja   http://ja.dbpedia.org/property/wikiPage
-	dwp.pt   http://pt.dbpedia.org/property/wikiPage
-	dwp.ar   http://ar.dbpedia.org/property/wikiPage
-	dwp.zh   http://zh.dbpedia.org/property/wikiPage
-	dwp.uk   http://uk.dbpedia.org/property/wikiPage
-	dwp.ca   http://ca.dbpedia.org/property/wikiPage
-	dwp.no   http://no.dbpedia.org/property/wikiPage
-	dwp.fi   http://fi.dbpedia.org/property/wikiPage
-	dwp.cs   http://cs.dbpedia.org/property/wikiPage
-	dwp.hu   http://hu.dbpedia.org/property/wikiPage
-	dwp.tr   http://tr.dbpedia.org/property/wikiPage
-	dwp.ro   http://ro.dbpedia.org/property/wikiPage
-	dwp.sw   http://sw.dbpedia.org/property/wikiPage
-	dwp.ko   http://ko.dbpedia.org/property/wikiPage
-	dwp.kk   http://kk.dbpedia.org/property/wikiPage
-	dwp.vi   http://vi.dbpedia.org/property/wikiPage
-	dwp.da   http://da.dbpedia.org/property/wikiPage
-	dwp.eo   http://eo.dbpedia.org/property/wikiPage
-	dwp.sr   http://sr.dbpedia.org/property/wikiPage
-	dwp.id   http://id.dbpedia.org/property/wikiPage
-	dwp.lt   http://lt.dbpedia.org/property/wikiPage
-	dwp.vo   http://vo.dbpedia.org/property/wikiPage
-	dwp.sk   http://sk.dbpedia.org/property/wikiPage
-	dwp.he   http://he.dbpedia.org/property/wikiPage
-	dwp.fa   http://fa.dbpedia.org/property/wikiPage
-	dwp.bg   http://bg.dbpedia.org/property/wikiPage
-	dwp.sl   http://sl.dbpedia.org/property/wikiPage
-	dwp.eu   http://eu.dbpedia.org/property/wikiPage
-	dwp.war   http://war.dbpedia.org/property/wikiPage
-	dwp.et   http://et.dbpedia.org/property/wikiPage
-	dwp.hr   http://hr.dbpedia.org/property/wikiPage
-	dwp.ms   http://ms.dbpedia.org/property/wikiPage
-	dwp.hi   http://hi.dbpedia.org/property/wikiPage
-	dwp.sh   http://sh.dbpedia.org/property/wikiPage
+	dbpwpde   http://de.dbpedia.org/property/wikiPage
+	dbpwpfr   http://fr.dbpedia.org/property/wikiPage
+	dbpwpen   http://en.dbpedia.org/property/wikiPage
+	dbpwpes   http://es.dbpedia.org/property/wikiPage
+	dbpwpit   http://it.dbpedia.org/property/wikiPage
+	dbpwpnl   http://nl.dbpedia.org/property/wikiPage
+	dbpwpru   http://ru.dbpedia.org/property/wikiPage
+	dbpwpsv   http://sv.dbpedia.org/property/wikiPage
+	dbpwppl   http://pl.dbpedia.org/property/wikiPage
+	dbpwpja   http://ja.dbpedia.org/property/wikiPage
+	dbpwppt   http://pt.dbpedia.org/property/wikiPage
+	dbpwpar   http://ar.dbpedia.org/property/wikiPage
+	dbpwpzh   http://zh.dbpedia.org/property/wikiPage
+	dbpwpuk   http://uk.dbpedia.org/property/wikiPage
+	dbpwpca   http://ca.dbpedia.org/property/wikiPage
+	dbpwpno   http://no.dbpedia.org/property/wikiPage
+	dbpwpfi   http://fi.dbpedia.org/property/wikiPage
+	dbpwpcs   http://cs.dbpedia.org/property/wikiPage
+	dbpwphu   http://hu.dbpedia.org/property/wikiPage
+	dbpwptr   http://tr.dbpedia.org/property/wikiPage
+	dbpwpro   http://ro.dbpedia.org/property/wikiPage
+	dbpwpsw   http://sw.dbpedia.org/property/wikiPage
+	dbpwpko   http://ko.dbpedia.org/property/wikiPage
+	dbpwpkk   http://kk.dbpedia.org/property/wikiPage
+	dbpwpvi   http://vi.dbpedia.org/property/wikiPage
+	dbpwpda   http://da.dbpedia.org/property/wikiPage
+	dbpwpeo   http://eo.dbpedia.org/property/wikiPage
+	dbpwpsr   http://sr.dbpedia.org/property/wikiPage
+	dbpwpid   http://id.dbpedia.org/property/wikiPage
+	dbpwplt   http://lt.dbpedia.org/property/wikiPage
+	dbpwpvo   http://vo.dbpedia.org/property/wikiPage
+	dbpwpsk   http://sk.dbpedia.org/property/wikiPage
+	dbpwphe   http://he.dbpedia.org/property/wikiPage
+	dbpwpfa   http://fa.dbpedia.org/property/wikiPage
+	dbpwpbg   http://bg.dbpedia.org/property/wikiPage
+	dbpwpsl   http://sl.dbpedia.org/property/wikiPage
+	dbpwpeu   http://eu.dbpedia.org/property/wikiPage
+	dbpwpwar   http://war.dbpedia.org/property/wikiPage
+	dbpwpet   http://et.dbpedia.org/property/wikiPage
+	dbpwphr   http://hr.dbpedia.org/property/wikiPage
+	dbpwpms   http://ms.dbpedia.org/property/wikiPage
+	dbpwphi   http://hi.dbpedia.org/property/wikiPage
+	dbpwpsh   http://sh.dbpedia.org/property/wikiPage
 
-	dp.de   http://de.dbpedia.org/property/
-	dp.fr   http://fr.dbpedia.org/property/
-	dp.en   http://en.dbpedia.org/property/
-	dp.es   http://es.dbpedia.org/property/
-	dp.it   http://it.dbpedia.org/property/
-	dp.nl   http://nl.dbpedia.org/property/
-	dp.ru   http://ru.dbpedia.org/property/
-	dp.sv   http://sv.dbpedia.org/property/
-	dp.pl   http://pl.dbpedia.org/property/
-	dp.ja   http://ja.dbpedia.org/property/
-	dp.pt   http://pt.dbpedia.org/property/
-	dp.ar   http://ar.dbpedia.org/property/
-	dp.zh   http://zh.dbpedia.org/property/
-	dp.uk   http://uk.dbpedia.org/property/
-	dp.ca   http://ca.dbpedia.org/property/
-	dp.no   http://no.dbpedia.org/property/
-	dp.fi   http://fi.dbpedia.org/property/
-	dp.cs   http://cs.dbpedia.org/property/
-	dp.hu   http://hu.dbpedia.org/property/
-	dp.tr   http://tr.dbpedia.org/property/
-	dp.ro   http://ro.dbpedia.org/property/
-	dp.sw   http://sw.dbpedia.org/property/
-	dp.ko   http://ko.dbpedia.org/property/
-	dp.kk   http://kk.dbpedia.org/property/
-	dp.vi   http://vi.dbpedia.org/property/
-	dp.da   http://da.dbpedia.org/property/
-	dp.eo   http://eo.dbpedia.org/property/
-	dp.sr   http://sr.dbpedia.org/property/
-	dp.id   http://id.dbpedia.org/property/
-	dp.lt   http://lt.dbpedia.org/property/
-	dp.vo   http://vo.dbpedia.org/property/
-	dp.sk   http://sk.dbpedia.org/property/
-	dp.he   http://he.dbpedia.org/property/
-	dp.fa   http://fa.dbpedia.org/property/
-	dp.bg   http://bg.dbpedia.org/property/
-	dp.sl   http://sl.dbpedia.org/property/
-	dp.eu   http://eu.dbpedia.org/property/
-	dp.war   http://war.dbpedia.org/property/
-	dp.et   http://et.dbpedia.org/property/
-	dp.hr   http://hr.dbpedia.org/property/
-	dp.ms   http://ms.dbpedia.org/property/
-	dp.hi   http://hi.dbpedia.org/property/
-	dp.sh   http://sh.dbpedia.org/property/
+	dbppde   http://de.dbpedia.org/property/
+	dbppfr   http://fr.dbpedia.org/property/
+	dbppen   http://en.dbpedia.org/property/
+	dbppes   http://es.dbpedia.org/property/
+	dbppit   http://it.dbpedia.org/property/
+	dbppnl   http://nl.dbpedia.org/property/
+	dbppru   http://ru.dbpedia.org/property/
+	dbppsv   http://sv.dbpedia.org/property/
+	dbpppl   http://pl.dbpedia.org/property/
+	dbppja   http://ja.dbpedia.org/property/
+	dbpppt   http://pt.dbpedia.org/property/
+	dbppar   http://ar.dbpedia.org/property/
+	dbppzh   http://zh.dbpedia.org/property/
+	dbppuk   http://uk.dbpedia.org/property/
+	dbppca   http://ca.dbpedia.org/property/
+	dbppno   http://no.dbpedia.org/property/
+	dbppfi   http://fi.dbpedia.org/property/
+	dbppcs   http://cs.dbpedia.org/property/
+	dbpphu   http://hu.dbpedia.org/property/
+	dbpptr   http://tr.dbpedia.org/property/
+	dbppro   http://ro.dbpedia.org/property/
+	dbppsw   http://sw.dbpedia.org/property/
+	dbppko   http://ko.dbpedia.org/property/
+	dbppkk   http://kk.dbpedia.org/property/
+	dbppvi   http://vi.dbpedia.org/property/
+	dbppda   http://da.dbpedia.org/property/
+	dbppeo   http://eo.dbpedia.org/property/
+	dbppsr   http://sr.dbpedia.org/property/
+	dbppid   http://id.dbpedia.org/property/
+	dbpplt   http://lt.dbpedia.org/property/
+	dbppvo   http://vo.dbpedia.org/property/
+	dbppsk   http://sk.dbpedia.org/property/
+	dbpphe   http://he.dbpedia.org/property/
+	dbppfa   http://fa.dbpedia.org/property/
+	dbppbg   http://bg.dbpedia.org/property/
+	dbppsl   http://sl.dbpedia.org/property/
+	dbppeu   http://eu.dbpedia.org/property/
+	dbppwar   http://war.dbpedia.org/property/
+	dbppet   http://et.dbpedia.org/property/
+	dbpphr   http://hr.dbpedia.org/property/
+	dbppms   http://ms.dbpedia.org/property/
+	dbpphi   http://hi.dbpedia.org/property/
+	dbppsh   http://sh.dbpedia.org/property/
 
 	address http://schemas.talis.com/2005/address/schema#
 	admin   http://webns.net/mvcb/
@@ -517,7 +517,7 @@ func main() {
 	ebay    urn:ebay:apis:eBLBaseComponents
 	enc http://purl.oclc.org/net/rss_2.0/enc#
 	exif    http://www.w3.org/2003/12/exif/ns/
-	fb  http://api.facebook.com/1.0/
+	facebook  http://api.facebook.com/1.0/
 	ff  http://api.friendfeed.com/2008/03
 	fn  http://www.w3.org/2005/xpath-functions/#
 	g   http://base.google.com/ns/1.0/
