@@ -23,6 +23,7 @@ _testmain.go
 *.test
 ntto
 !debian/ntto
+!cmd/ntto/ntto.go
 *.deb
 *.rpm
 .vagrant
