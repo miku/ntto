@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -21,8 +22,17 @@ type Rule struct {
 	Shortcut string
 }
 
+func DumpRules(rules []Rule) string {
+	var formatted []string
+	for _, rule := range rules {
+		formatted = append(formatted, rule.String())
+	}
+	sort.Strings(formatted)
+	return strings.Join(formatted, "\n")
+}
+
 func (r Rule) String() string {
-	return fmt.Sprintf("%s: %s", r.Shortcut, r.Prefix)
+	return fmt.Sprintf("%s\t%s", r.Shortcut, r.Prefix)
 }
 
 func IsURIRef(s string) bool {
