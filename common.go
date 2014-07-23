@@ -13,8 +13,8 @@ const AppVersion = "0.2"
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
 	Subject   string   `json:"s" xml:"s"`
-	Predicate string   `json:"s" xml:"s"`
-	Object    string   `json:"s" xml:"s"`
+	Predicate string   `json:"p" xml:"p"`
+	Object    string   `json:"o" xml:"o"`
 }
 
 type Rule struct {
