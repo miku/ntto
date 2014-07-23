@@ -1,6 +1,6 @@
 Summary:    Convert N-Triples to various formats.
 Name:       ntto
-Version:    0.1
+Version:    0.2
 Release:    0
 License:    GPLv3
 BuildArch:  x86_64
