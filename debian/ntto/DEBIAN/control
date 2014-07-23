@@ -1,0 +1,9 @@
+Package: ntto
+Version: 0.1
+Section: utils
+Priority: optional
+Architecture: amd64
+Essential: no
+Depends: libc6 (>= 2.12)
+Maintainer: Martin Czygan
+Description: Convert NTriples to various formats.

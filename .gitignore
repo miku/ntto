@@ -22,6 +22,7 @@ _testmain.go
 *.exe
 *.test
 ntto
+!debian/ntto
 *.deb
 *.rpm
 .vagrant
