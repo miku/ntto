@@ -1,6 +1,7 @@
 package ntto
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -79,6 +80,7 @@ var IsNamedNodeTests = []struct {
 	{"\"atom\"", false},
 	{"\"atom\"@en", false},
 	{"\"atom\"@fr", false},
+	{"_:sa9df86sdf68", true},
 }
 
 func TestIsNamedNode(t *testing.T) {
@@ -86,6 +88,24 @@ func TestIsNamedNode(t *testing.T) {
 		out := IsNamedNode(tt.in)
 		if out != tt.out {
 			t.Errorf("IsNamedNode(%s) => %t, want: %t", tt.in, out, tt.out)
+		}
+	}
+}
+
+var ParseRulesTests = []struct {
+	in  string
+	out []Rule
+}{
+	{`a hello
+      b world`, []Rule{Rule{Prefix: "hello", Shortcut: "a"},
+		Rule{Prefix: "world", Shortcut: "b"}}},
+}
+
+func TestParseRules(t *testing.T) {
+	for _, tt := range ParseRulesTests {
+		out, _ := ParseRules(tt.in)
+		if !reflect.DeepEqual(out, tt.out) {
+			t.Errorf("ParseRules(%s) => %+v, want: %+v", tt.in, out, tt.out)
 		}
 	}
 }

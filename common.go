@@ -2,6 +2,7 @@ package ntto
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -15,13 +16,13 @@ type Triple struct {
 	Object    string   `json:"s" xml:"s"`
 }
 
-type NamespaceAbbreviation struct {
-	Namespace    string
-	Abbreviation string
+type Rule struct {
+	Prefix   string
+	Shortcut string
 }
 
-func (na NamespaceAbbreviation) String() string {
-	return fmt.Sprintf("%s: %s", na.Abbreviation, na.Namespace)
+func (r Rule) String() string {
+	return fmt.Sprintf("%s: %s", r.Shortcut, r.Prefix)
 }
 
 func IsURIRef(s string) bool {
@@ -45,4 +46,23 @@ func IsLiteralLanguage(s, language string) bool {
 
 func IsNamedNode(s string) bool {
 	return strings.HasPrefix(s, "_:")
+}
+
+// ParseAbbreviations takes a string, parse the abbreviations and returns them as slice
+func ParseRules(s string) ([]Rule, error) {
+	var rules []Rule
+	var err error
+	for _, line := range strings.Split(s, "\n") {
+		line = strings.TrimSpace(line)
+		if len(line) == 0 || strings.HasPrefix(line, "#") || strings.HasPrefix(line, "//") {
+			continue
+		}
+		fields := strings.Fields(line)
+		if len(fields) < 2 {
+			err = errors.New(fmt.Sprintf("Broken rule: %s", line))
+
+		}
+		rules = append(rules, Rule{Prefix: fields[1], Shortcut: fields[0]})
+	}
+	return rules, err
 }
