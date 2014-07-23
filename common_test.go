@@ -1,6 +1,7 @@
 package ntto
 
 import (
+	"errors"
 	"reflect"
 	"testing"
 )
@@ -95,35 +96,58 @@ func TestIsNamedNode(t *testing.T) {
 var ParseRulesTests = []struct {
 	in  string
 	out []Rule
+	err error
 }{
 	{`a hello
-      b world`, []Rule{Rule{Prefix: "hello", Shortcut: "a"},
-		Rule{Prefix: "world", Shortcut: "b"}}},
+      b world`,
+		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
+			Rule{Prefix: "world", Shortcut: "b"}},
+		nil},
 
 	{`a hello
       // just a comment  
-      b world`, []Rule{Rule{Prefix: "hello", Shortcut: "a"},
-		Rule{Prefix: "world", Shortcut: "b"}}},
+      b world`,
+		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
+			Rule{Prefix: "world", Shortcut: "b"}},
+		nil},
 
 	{`a hello
       # just a comment
 
-      b world`, []Rule{Rule{Prefix: "hello", Shortcut: "a"},
-		Rule{Prefix: "world", Shortcut: "b"}}},
+      b world`,
+		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
+			Rule{Prefix: "world", Shortcut: "b"}},
+		nil},
 
 	{`a hello
 
       // do not mix, unless you have to
       # just a comment
       
-      b world`, []Rule{Rule{Prefix: "hello", Shortcut: "a"},
-		Rule{Prefix: "world", Shortcut: "b"}}},
+      b world`,
+		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
+			Rule{Prefix: "world", Shortcut: "b"}},
+		nil},
+
+	{`a
+
+      // do not mix, unless you have to
+      # just a comment
+      
+      b world`,
+		[]Rule{},
+		errors.New("Broken rule: a")},
 }
 
 func TestParseRules(t *testing.T) {
 	for _, tt := range ParseRulesTests {
-		out, _ := ParseRules(tt.in)
-		if !reflect.DeepEqual(out, tt.out) {
+		out, err := ParseRules(tt.in)
+		if err != nil && err.Error() != tt.err.Error() {
+			t.Errorf("ParseRules(%s) error mismatch => %s, want: %v", tt.in, err, tt.err)
+		} else {
+
+		}
+		if err == nil && !reflect.DeepEqual(out, tt.out) {
 			t.Errorf("ParseRules(%s) => %+v, want: %+v", tt.in, out, tt.out)
 		}
 	}

@@ -60,7 +60,7 @@ func ParseRules(s string) ([]Rule, error) {
 		fields := strings.Fields(line)
 		if len(fields) < 2 {
 			err = errors.New(fmt.Sprintf("Broken rule: %s", line))
-
+			break
 		}
 		rules = append(rules, Rule{Prefix: fields[1], Shortcut: fields[0]})
 	}
