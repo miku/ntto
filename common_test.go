@@ -145,10 +145,51 @@ func TestParseRules(t *testing.T) {
 		if err != nil && err.Error() != tt.err.Error() {
 			t.Errorf("ParseRules(%s) error mismatch => %s, want: %v", tt.in, err, tt.err)
 		} else {
-
+			// pass
 		}
 		if err == nil && !reflect.DeepEqual(out, tt.out) {
 			t.Errorf("ParseRules(%s) => %+v, want: %+v", tt.in, out, tt.out)
+		}
+	}
+}
+
+var PartitionRulesTests = []struct {
+	in  []Rule
+	p   int
+	out [][]Rule
+}{
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		2,
+		[][]Rule{
+			[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"}},
+			[]Rule{Rule{Shortcut: "b", Prefix: "bbbb"}}},
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		1,
+		[][]Rule{[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"}, Rule{Shortcut: "b", Prefix: "bbbb"}}},
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"},
+			Rule{Shortcut: "c", Prefix: "cccc"}},
+		3,
+		[][]Rule{
+			[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"}},
+			[]Rule{Rule{Shortcut: "b", Prefix: "bbbb"}},
+			[]Rule{Rule{Shortcut: "c", Prefix: "cccc"}},
+		},
+	},
+}
+
+func TestPartitionRules(t *testing.T) {
+	for _, tt := range PartitionRulesTests {
+		out := PartitionRules(tt.in, tt.p)
+		if !reflect.DeepEqual(out, tt.out) {
+			t.Errorf("PartitionRules(%+v) => %+v, want: %+v", tt.in, out, tt.out)
 		}
 	}
 }

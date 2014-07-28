@@ -76,3 +76,13 @@ func ParseRules(s string) ([]Rule, error) {
 	}
 	return rules, err
 }
+
+// PartitionRules divides the rules slice into `count` partitions
+func PartitionRules(rules []Rule, count int) [][]Rule {
+	partitions := make([][]Rule, count)
+	for i, rule := range rules {
+		p := i % count
+		partitions[p] = append(partitions[p], rule)
+	}
+	return partitions
+}
