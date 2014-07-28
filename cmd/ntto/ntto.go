@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"runtime"
 	"runtime/pprof"
 )
@@ -50,11 +51,6 @@ func main() {
 		os.Exit(0)
 	}
 
-	if flag.NArg() < 1 {
-		PrintUsage()
-		os.Exit(1)
-	}
-
 	var rules []ntto.Rule
 	var err error
 
@@ -79,15 +75,22 @@ func main() {
 		os.Exit(0)
 	}
 
-	file, err := os.Open(flag.Args()[0])
+	if flag.NArg() < 1 {
+		PrintUsage()
+		os.Exit(1)
+	}
+
+	filename := flag.Args()[0]
+	tmp, err := ioutil.TempFile("", "ntto-")
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	defer func() {
-		if err := file.Close(); err != nil {
-			log.Fatalln(err)
-		}
-	}()
+	fmt.Printf("Writing to %s\n", tmp.Name())
+	command := fmt.Sprintf("sed -e 's@http://d-nb.info/gnd/@gnd:@g; s@http://d-nb.info/standards/elementset/gnd#@dnb:@g' %s | sed -e 's@http://www.w3.org/1999/02/22-rdf-syntax-ns#@rdf:@g'> %s", filename, tmp.Name())
+	out, err := exec.Command("sh", "-c", command).Output()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(out)
 
 }
