@@ -34,6 +34,12 @@ deb: $(TARGETS)
 	cp ntto debian/ntto/usr/sbin
 	cd debian && fakeroot dpkg-deb --build ntto .
 
+REPOPATH = /usr/share/nginx/html/repo/CentOS/6/x86_64
+
+publish: rpm
+	cp ntto-*.rpm $(REPOPATH)
+	createrepo $(REPOPATH)
+
 # rpm building via vagrant -- assume this is the first VM,
 # otherwise there will be port collisions
 SSHCMD = ssh -o StrictHostKeyChecking=no -i vagrant.key vagrant@127.0.0.1 -p 2222
