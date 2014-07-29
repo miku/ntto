@@ -14,6 +14,12 @@ import (
 
 func main() {
 
+	_, err := exec.LookPath("sed")
+	if err != nil {
+		log.Fatalln("This program requires the sed.")
+		os.Exit(1)
+	}
+
 	cpuprofile := flag.String("cpuprofile", "", "write cpu profile to file")
 	version := flag.Bool("v", false, "prints current version and exits")
 	dumpRules := flag.Bool("d", false, "dump rules and exit")
@@ -43,7 +49,6 @@ func main() {
 	}
 
 	var rules []ntto.Rule
-	var err error
 
 	if *rulesFile == "" {
 		rules, err = ntto.ParseRules(ntto.DefaultRules)
