@@ -49,7 +49,7 @@ Usage
       -c=false: dump constructed sed command and exit
       -cpuprofile="": write cpu profile to file
       -d=false: dump rules and exit
-      -n="NULL": string to indicate empty string replacement
+      -n="<NULL>": string to indicate empty string replacement
       -o="": output file to write result to
       -r="": path to rules file, use built-in if none given
       -v=false: prints current version and exits
