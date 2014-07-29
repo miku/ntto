@@ -16,7 +16,7 @@ func main() {
 
 	_, err := exec.LookPath("sed")
 	if err != nil {
-		log.Fatalln("This program requires the sed.")
+		log.Fatalln("This program requires sed.")
 		os.Exit(1)
 	}
 
