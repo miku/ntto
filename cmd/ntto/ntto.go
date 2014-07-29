@@ -14,9 +14,9 @@ import (
 
 func main() {
 
-	_, err := exec.LookPath("sed")
+	_, err := exec.LookPath("perl")
 	if err != nil {
-		log.Fatalln("This program requires sed.")
+		log.Fatalln("This program requires perl.")
 		os.Exit(1)
 	}
 

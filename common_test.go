@@ -213,28 +213,28 @@ var SedifyTests = []struct {
 			Rule{Shortcut: "b", Prefix: "bbbb"}},
 		2,
 		"",
-		"sed -e 's@aaaa@a:@g' | sed -e 's@bbbb@b:@g'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g' | LANG=C perl -lnpe 's@bbbb@b:@g'",
 	},
 	{
 		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
 			Rule{Shortcut: "b", Prefix: "bbbb"}},
 		1,
 		"",
-		"sed -e 's@aaaa@a:@g; s@bbbb@b:@g'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g; s@bbbb@b:@g'",
 	},
 	{
 		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
 			Rule{Shortcut: "b", Prefix: "bbbb"}},
 		1,
 		"hello.txt",
-		"sed -e 's@aaaa@a:@g; s@bbbb@b:@g' < 'hello.txt'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g; s@bbbb@b:@g' < 'hello.txt'",
 	},
 	{
 		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
 			Rule{Shortcut: "b", Prefix: "bbbb"}},
 		2,
 		"hello.txt",
-		"sed -e 's@aaaa@a:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g' < 'hello.txt' | LANG=C perl -lnpe 's@bbbb@b:@g'",
 	},
 	{
 		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
@@ -245,7 +245,7 @@ var SedifyTests = []struct {
 			Rule{Shortcut: "f", Prefix: "ffff"}},
 		2,
 		"hello.txt",
-		"sed -e 's@aaaa@a:@g; s@cccc@c:@g; s@eeee@e:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g; s@dddd@d:@g; s@ffff@f:@g'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g; s@cccc@c:@g; s@eeee@e:@g' < 'hello.txt' | LANG=C perl -lnpe 's@bbbb@b:@g; s@dddd@d:@g; s@ffff@f:@g'",
 	},
 	{
 		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
@@ -256,7 +256,7 @@ var SedifyTests = []struct {
 			Rule{Shortcut: "f", Prefix: "ffff"}},
 		4,
 		"hello.txt",
-		"sed -e 's@aaaa@a:@g; s@eeee@e:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g; s@ffff@f:@g' | sed -e 's@cccc@c:@g' | sed -e 's@dddd@d:@g'",
+		"LANG=C perl -lnpe 's@aaaa@a:@g; s@eeee@e:@g' < 'hello.txt' | LANG=C perl -lnpe 's@bbbb@b:@g; s@ffff@f:@g' | LANG=C perl -lnpe 's@cccc@c:@g' | LANG=C perl -lnpe 's@dddd@d:@g'",
 	},
 }
 
