@@ -193,3 +193,70 @@ func TestPartitionRules(t *testing.T) {
 		}
 	}
 }
+
+var SedifyTests = []struct {
+	rules []Rule
+	p     int
+	in    string
+	out   string
+}{
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		2,
+		"",
+		"sed -e 's@aaaa@a:@g' | sed -e 's@bbbb@b:@g'",
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		1,
+		"",
+		"sed -e 's@aaaa@a:@g; s@bbbb@b:@g'",
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		1,
+		"hello.txt",
+		"sed -e 's@aaaa@a:@g; s@bbbb@b:@g' < 'hello.txt'",
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		2,
+		"hello.txt",
+		"sed -e 's@aaaa@a:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g'",
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"},
+			Rule{Shortcut: "c", Prefix: "cccc"},
+			Rule{Shortcut: "d", Prefix: "dddd"},
+			Rule{Shortcut: "e", Prefix: "eeee"},
+			Rule{Shortcut: "f", Prefix: "ffff"}},
+		2,
+		"hello.txt",
+		"sed -e 's@aaaa@a:@g; s@cccc@c:@g; s@eeee@e:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g; s@dddd@d:@g; s@ffff@f:@g'",
+	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"},
+			Rule{Shortcut: "c", Prefix: "cccc"},
+			Rule{Shortcut: "d", Prefix: "dddd"},
+			Rule{Shortcut: "e", Prefix: "eeee"},
+			Rule{Shortcut: "f", Prefix: "ffff"}},
+		4,
+		"hello.txt",
+		"sed -e 's@aaaa@a:@g; s@eeee@e:@g' < 'hello.txt' | sed -e 's@bbbb@b:@g; s@ffff@f:@g' | sed -e 's@cccc@c:@g' | sed -e 's@dddd@d:@g'",
+	},
+}
+
+func TestSedify(t *testing.T) {
+	for _, tt := range SedifyTests {
+		out := Sedify(tt.rules, tt.p, tt.in)
+		if out != tt.out {
+			t.Errorf("Sedify(%+v, %d, %s) => %+v, want: %+v", tt.rules, tt.p, tt.in, out, tt.out)
+		}
+	}
+}

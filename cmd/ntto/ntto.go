@@ -12,21 +12,14 @@ import (
 	"runtime/pprof"
 )
 
-type Work struct {
-	Line             *string
-	Abbreviate       *bool
-	LanguageLiterals *[]string
-	OutputFormat     *string
-	Rules            *[]ntto.Rule
-}
-
 func main() {
 
 	cpuprofile := flag.String("cpuprofile", "", "write cpu profile to file")
 	version := flag.Bool("v", false, "prints current version and exits")
 	dumpRules := flag.Bool("d", false, "dump rules and exit")
-	workers := flag.Int("w", runtime.NumCPU(), "number of workers")
+	dumpCommand := flag.Bool("c", false, "dump constructed sed command and exit")
 	rulesFile := flag.String("r", "", "path to rules file, use built-in if none given")
+	outFile := flag.String("o", "", "output file to write result to")
 
 	flag.Parse()
 
@@ -34,8 +27,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [OPTIONS] FILE\n", os.Args[0])
 		flag.PrintDefaults()
 	}
-
-	runtime.GOMAXPROCS(*workers)
 
 	if *cpuprofile != "" {
 		f, err := os.Create(*cpuprofile)
@@ -81,16 +72,28 @@ func main() {
 	}
 
 	filename := flag.Args()[0]
-	tmp, err := ioutil.TempFile("", "ntto-")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	fmt.Printf("Writing to %s\n", tmp.Name())
-	command := fmt.Sprintf("sed -e 's@http://d-nb.info/gnd/@gnd:@g; s@http://d-nb.info/standards/elementset/gnd#@dnb:@g' %s | sed -e 's@http://www.w3.org/1999/02/22-rdf-syntax-ns#@rdf:@g'> %s", filename, tmp.Name())
-	out, err := exec.Command("sh", "-c", command).Output()
-	if err != nil {
-		log.Fatalln(err)
-	}
-	fmt.Println(out)
+	var output string
 
+	if *outFile == "" {
+		tmp, err := ioutil.TempFile("", "ntto-")
+		output = tmp.Name()
+		fmt.Fprintf(os.Stderr, "Writing to %s\n", output)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	} else {
+		output = *outFile
+	}
+
+	command := fmt.Sprintf("%s > %s", ntto.Sedify(rules, runtime.NumCPU(), filename), output)
+
+	if *dumpCommand {
+		fmt.Println(command)
+		os.Exit(0)
+	}
+
+	_, err = exec.Command("sh", "-c", command).Output()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

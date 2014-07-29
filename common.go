@@ -86,3 +86,25 @@ func PartitionRules(rules []Rule, count int) [][]Rule {
 	}
 	return partitions
 }
+
+// Turn rules into a sed command `in` as input, `out` as output filename
+func Sedify(rules []Rule, p int, in string) string {
+	partitions := PartitionRules(rules, p)
+	// 's@http://d-nb.info/gnd/@gnd:@g; s@http://d-nb.info/standards/elementset/gnd#@dnb:@g'
+	var replacements []string
+	for i, p := range partitions {
+		commands := make([]string, len(p))
+		for j, rule := range p {
+			commands[j] = fmt.Sprintf("s@%s@%s:@g", rule.Prefix, rule.Shortcut)
+		}
+		if i == 0 && in != "" {
+			cmd := fmt.Sprintf("sed -e '%s' < '%s'", strings.Join(commands, "; "), in)
+			replacements = append(replacements, cmd)
+		} else {
+			cmd := fmt.Sprintf("sed -e '%s'", strings.Join(commands, "; "))
+			replacements = append(replacements, cmd)
+		}
+
+	}
+	return strings.Join(replacements, " | ")
+}
