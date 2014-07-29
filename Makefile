@@ -54,20 +54,3 @@ rpm: $(TARGETS)
 	cp ntto $(HOME)/rpmbuild/BUILD
 	./packaging/buildrpm.sh ntto
 	cp $(HOME)/rpmbuild/RPMS/x86_64/*rpm .
-
-# Helper to build RPM on a RHEL6 VM, to link against glibc 2.12
-vagrant.key:
-	curl -sL "https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant" > vagrant.key
-	chmod 0600 vagrant.key
-
-# # Don't forget to vagrant up :) - and add your public key to the guests authorized_keys
-# vm-setup: vagrant.key
-# 	$(SSHCMD) "sudo yum install -y sudo yum install http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm"
-# 	$(SSHCMD) "sudo yum install -y golang git rpm-build"
-# 	$(SSHCMD) "mkdir -p /home/vagrant/src/github.com/miku"
-# 	$(SSHCMD) "cd /home/vagrant/src/github.com/miku && git clone https://github.com/miku/marctools.git"
-
-# rpm-compatible: vagrant.key
-# 	$(SSHCMD) "cd /home/vagrant/src/github.com/miku/marctools && GOPATH=/home/vagrant go get"
-# 	$(SSHCMD) "cd /home/vagrant/src/github.com/miku/marctools && git pull origin master && pwd && GOPATH=/home/vagrant make rpm"
-# 	$(SCPCMD) vagrant@127.0.0.1:/home/vagrant/src/github.com/miku/marctools/*rpm .
