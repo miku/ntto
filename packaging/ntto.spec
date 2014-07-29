@@ -1,6 +1,6 @@
-Summary:    Convert N-Triples to various formats.
+Summary:    Shrink N-Triples by applying namespace abbreviations.
 Name:       ntto
-Version:    0.3
+Version:    0.3.1
 Release:    0
 License:    GPLv3
 BuildArch:  x86_64
@@ -11,7 +11,7 @@ URL:        https://github.com/miku/ntto
 
 %description
 
-ntto converts n-triples to various other formats.
+ntto shrinks triples by applying namespace abbreviations.
 
 %prep
 # the set up macro unpacks the source bundle and changes in to the represented by

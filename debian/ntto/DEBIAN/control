@@ -1,5 +1,5 @@
 Package: ntto
-Version: 0.3
+Version: 0.3.1
 Section: utils
 Priority: optional
 Architecture: amd64
