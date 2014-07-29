@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "0.3.1"
+const AppVersion = "0.3.2"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -109,10 +109,10 @@ func SedifyNull(rules []Rule, p int, in, null string) string {
 			}
 		}
 		if i == 0 && in != "" {
-			cmd := fmt.Sprintf("sed -e '%s' < '%s'", strings.Join(commands, "; "), in)
+			cmd := fmt.Sprintf("LANG=C perl -lnpe '%s' < '%s'", strings.Join(commands, "; "), in)
 			replacements = append(replacements, cmd)
 		} else {
-			cmd := fmt.Sprintf("sed -e '%s'", strings.Join(commands, "; "))
+			cmd := fmt.Sprintf("LANG=C perl -lnpe '%s'", strings.Join(commands, "; "))
 			replacements = append(replacements, cmd)
 		}
 
