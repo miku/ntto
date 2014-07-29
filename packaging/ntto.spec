@@ -1,6 +1,6 @@
 Summary:    Shrink N-Triples by applying namespace abbreviations.
 Name:       ntto
-Version:    0.3.3
+Version:    0.3.4
 Release:    0
 License:    GPLv3
 BuildArch:  x86_64
