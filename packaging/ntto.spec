@@ -1,6 +1,6 @@
 Summary:    Shrink N-Triples by applying namespace abbreviations.
 Name:       ntto
-Version:    0.3.2
+Version:    0.3.3
 Release:    0
 License:    GPLv3
 BuildArch:  x86_64
@@ -46,5 +46,9 @@ rm -rf %{_topdir}/BUILD/%{name}
 
 
 %changelog
+* Wed Jul 39 2014 Martin Czygan
+- 0.3.3 release
+- use replace (mysql-server utility) or fallback to perl
+
 * Wed Jul 23 2014 Martin Czygan
 - 0.1 release

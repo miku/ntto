@@ -14,9 +14,15 @@ import (
 
 func main() {
 
-	_, err := exec.LookPath("perl")
+	executive := "replace"
+	_, err := exec.LookPath("replace")
 	if err != nil {
-		log.Fatalln("This program requires perl.")
+		executive = "perl"
+	}
+
+	_, err = exec.LookPath("perl")
+	if err != nil {
+		log.Fatalln("This program requires perl or replace.")
 		os.Exit(1)
 	}
 
@@ -92,7 +98,12 @@ func main() {
 		output = *outFile
 	}
 
-	command := fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *workers, filename, *nullValue), output)
+	var command string
+	if executive == "perl" {
+		command = fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *workers, filename, *nullValue), output)
+	} else {
+		command = fmt.Sprintf("%s > %s", ntto.ReplacifyNull(rules, filename, *nullValue), output)
+	}
 
 	if *dumpCommand {
 		fmt.Println(command)

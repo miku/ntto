@@ -1,6 +1,7 @@
 package ntto
 
 import (
+	"bytes"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -9,7 +10,7 @@ import (
 	"strings"
 )
 
-const AppVersion = "0.3.2"
+const AppVersion = "0.3.3"
 
 type Triple struct {
 	XMLName   xml.Name `json:"-" xml:"t"`
@@ -118,4 +119,20 @@ func SedifyNull(rules []Rule, p int, in, null string) string {
 
 	}
 	return strings.Join(replacements, " | ")
+}
+
+func Replacify(rules []Rule, in string) string {
+	return ReplacifyNull(rules, in, "<NULL>")
+}
+
+func ReplacifyNull(rules []Rule, in, null string) string {
+	var buffer bytes.Buffer
+	for _, rule := range rules {
+		if rule.Shortcut == null {
+			buffer.WriteString(fmt.Sprintf(" '%s' '' ", rule.Prefix))
+		} else {
+			buffer.WriteString(fmt.Sprintf(" '%s' '%s' ", rule.Prefix, rule.Shortcut))
+		}
+	}
+	return fmt.Sprintf("replace %s < %s", buffer.String(), in)
 }
