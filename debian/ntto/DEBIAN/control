@@ -1,9 +1,9 @@
 Package: ntto
-Version: 0.2
+Version: 0.3
 Section: utils
 Priority: optional
 Architecture: amd64
 Essential: no
 Depends: libc6 (>= 2.12)
 Maintainer: Martin Czygan
-Description: Convert NTriples to various formats.
+Description: Shrink ntriples files by applying namespaces abbreviations.
