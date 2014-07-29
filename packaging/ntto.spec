@@ -46,7 +46,7 @@ rm -rf %{_topdir}/BUILD/%{name}
 
 
 %changelog
-* Wed Jul 39 2014 Martin Czygan
+* Tue Jul 29 2014 Martin Czygan
 - 0.3.3 release
 - use replace (mysql-server utility) or fallback to perl
 
