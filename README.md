@@ -54,3 +54,34 @@ Usage
       -r="": path to rules file, use built-in if none given
       -v=false: prints current version and exits
       -w=4: number of sed processes
+
+Example conversion
+------------------
+
+Before:
+
+    <http://d-nb.info/gnd/1-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://d-nb.info/standards/elementset/gnd#SeriesOfConferenceOrEvent> .
+    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "1-2" .
+    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#oldAuthorityNumber> "(DE-588b)1-2" .
+    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#variantNameForTheConferenceOrEvent> "Conferentie van Niet-Kernwapenstaten" .
+    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#variantNameForTheConferenceOrEvent> "Conference on Non-Nuclear Weapon States" .
+    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#preferredNameForTheConferenceOrEvent> "Conference of Non-Nuclear Weapon States" .
+    <http://d-nb.info/gnd/2-4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://d-nb.info/standards/elementset/gnd#ConferenceOrEvent> .
+    <http://d-nb.info/gnd/2-4> <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "2-4" .
+    <http://d-nb.info/gnd/2-4> <http://d-nb.info/standards/elementset/gnd#oldAuthorityNumber> "(DE-588b)2-4" .
+    <http://d-nb.info/gnd/2-4> <http://d-nb.info/standards/elementset/gnd#preferredNameForTheConferenceOrEvent> "Conferenza Nazionale della Ceramica <1963, Vicenza>" .
+    ...
+
+After:
+
+    <gnd:1-2> <rdf:type> <dnbes:SeriesOfConferenceOrEvent> .
+    <gnd:1-2> <dnbes:gndIdentifier> "1-2" .
+    <gnd:1-2> <dnbes:oldAuthorityNumber> "(DE-588b)1-2" .
+    <gnd:1-2> <dnbes:variantNameForTheConferenceOrEvent> "Conferentie van Niet-Kernwapenstaten" .
+    <gnd:1-2> <dnbes:variantNameForTheConferenceOrEvent> "Conference on Non-Nuclear Weapon States" .
+    <gnd:1-2> <dnbes:preferredNameForTheConferenceOrEvent> "Conference of Non-Nuclear Weapon States" .
+    <gnd:2-4> <rdf:type> <dnbes:ConferenceOrEvent> .
+    <gnd:2-4> <dnbes:gndIdentifier> "2-4" .
+    <gnd:2-4> <dnbes:oldAuthorityNumber> "(DE-588b)2-4" .
+    <gnd:2-4> <dnbes:preferredNameForTheConferenceOrEvent> "Conferenza Nazionale della Ceramica <1963, Vicenza>" .
+    ...
