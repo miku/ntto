@@ -5,6 +5,17 @@ Shrink N-Triples by applying namespace abbreviations.
 
 [![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
 
+Installation
+------------
+
+RPM and DEB packages can be found under [releases](https://github.com/miku/ntto/releases).
+
+With a proper Go setup, a
+
+    $ go get github.com/miku/ntto/cmd/ntto
+
+should work as well.
+
 Mode of operation
 -----------------
 
