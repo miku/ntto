@@ -53,4 +53,4 @@ rpm: $(TARGETS)
 	cp ./packaging/ntto.spec $(HOME)/rpmbuild/SPECS
 	cp ntto $(HOME)/rpmbuild/BUILD
 	./packaging/buildrpm.sh ntto
-	cp $(HOME)/rpmbuild/RPMS/x86_64/*rpm .
+	cp $(HOME)/rpmbuild/RPMS/x86_64/ntto*.rpm .
