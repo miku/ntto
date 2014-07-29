@@ -1,17 +1,19 @@
 # example rules file
-dbp http://dbpedia.org/resource/
-gnd          http://d-nb.info/gnd/
-dnbes       http://d-nb.info/standards/elementset/gnd#
-dnbac     http://d-nb.info/standards/vocab/gnd/geographic-area-code#
-dnbv      http://d-nb.info/standards/vocab/gnd/
+dbp             http://dbpedia.org/resource/
+gnd             http://d-nb.info/gnd/
+dnbes           http://d-nb.info/standards/elementset/gnd#
+dnbac           http://d-nb.info/standards/vocab/gnd/geographic-area-code#
+dnbv            http://d-nb.info/standards/vocab/gnd/
 
-viaf    http://viaf.org/viaf/
-frbr    http://rdvocab.info/uri/schema/FRBRentitiesRDA/
-rdgr    http://rdvocab.info/ElementsGr2/
+viaf            http://viaf.org/viaf/
+frbr            http://rdvocab.info/uri/schema/FRBRentitiesRDA/
+rdgr            http://rdvocab.info/ElementsGr2/
 
-foaf    http://xmlns.com/foaf/0.1/
-rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
-rdfs    http://www.w3.org/2000/01/rdf-schema#
-schema      http://schema.org/
-dc  http://purl.org/dc/elements/1.1/
-dcterms http://purl.org/dc/terms/
+# empty lines are ignored, as are comments
+
+foaf            http://xmlns.com/foaf/0.1/
+rdf             http://www.w3.org/1999/02/22-rdf-syntax-ns#
+rdfs            http://www.w3.org/2000/01/rdf-schema#
+schema          http://schema.org/
+dc              http://purl.org/dc/elements/1.1/
+dcterms         http://purl.org/dc/terms/
