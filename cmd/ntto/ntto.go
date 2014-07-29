@@ -26,6 +26,8 @@ func main() {
 	dumpCommand := flag.Bool("c", false, "dump constructed sed command and exit")
 	rulesFile := flag.String("r", "", "path to rules file, use built-in if none given")
 	outFile := flag.String("o", "", "output file to write result to")
+	nullValue := flag.String("n", "<NULL>", "string to indicate empty string replacement")
+	workers := flag.Int("w", runtime.NumCPU(), "number of sed processes")
 
 	flag.Parse()
 
@@ -90,7 +92,7 @@ func main() {
 		output = *outFile
 	}
 
-	command := fmt.Sprintf("%s > %s", ntto.Sedify(rules, runtime.NumCPU(), filename), output)
+	command := fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *workers, filename, *nullValue), output)
 
 	if *dumpCommand {
 		fmt.Println(command)
