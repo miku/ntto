@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 )
@@ -79,6 +80,7 @@ func ParseRules(s string) ([]Rule, error) {
 
 // PartitionRules divides the rules slice into `count` partitions
 func PartitionRules(rules []Rule, count int) [][]Rule {
+	count = int(math.Min(float64(len(rules)), float64(count)))
 	partitions := make([][]Rule, count)
 	for i, rule := range rules {
 		p := i % count

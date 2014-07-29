@@ -183,6 +183,14 @@ var PartitionRulesTests = []struct {
 			[]Rule{Rule{Shortcut: "c", Prefix: "cccc"}},
 		},
 	},
+	{
+		[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"},
+			Rule{Shortcut: "b", Prefix: "bbbb"}},
+		5,
+		[][]Rule{
+			[]Rule{Rule{Shortcut: "a", Prefix: "aaaa"}},
+			[]Rule{Rule{Shortcut: "b", Prefix: "bbbb"}}},
+	},
 }
 
 func TestPartitionRules(t *testing.T) {
