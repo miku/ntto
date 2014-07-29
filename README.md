@@ -22,10 +22,9 @@ Mode of operation
 ntto takes a RULES file (alternatively uses some builtin-rules) to abbreviate
 common prefixes in n-triple files.
 
-ntto does not do the replacements itself, but outsources it to a couple of
-[sed](http://en.wikipedia.org/wiki/Sed) processes which will be run in parallel.
+ntto does not do the replacements itself, but outsources it to external programs.
 
-This will shrink in the order of 30k to 50k lines per second. The resulting
+This will shrink in between 30k and 3M lines per second. The resulting
 files can be up to 50% of the size of the original file.
 
 Example rules file
