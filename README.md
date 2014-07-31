@@ -1,7 +1,31 @@
 ntto
 ====
 
-Shrink N-Triples by applying namespace abbreviations.
+Minimal n-triples toolkit. It can:
+
+* shrink n-triples by applying namespace abbreviations (given some rules)
+* convert n-triples to JSON
+
+For dump the abbreviation rules, run:
+
+    $ ntto -d
+
+To create an abbreviated NT file from an NT file, run:
+
+    $ ntto -o OUTPUT.NT -a FILE.nt
+
+To create an abbreviated JSON file from an NT file, run:
+
+    $ ntto -a -j FILE.nt > OUTPUT.NT
+
+To create an abbreviated JSON file from an NT file while ignoring conversion errors, run:
+
+    $ ntto -a -j -i FILE.nt > OUTPUT.NT
+
+To create an abbreviated JSON file from an NT file while ignoring conversion errors and using a custom RULES file, run:
+
+    $ ntto -r RULES -a -j -i FILE.nt > OUTPUT.NT
+
 
 [![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
 
@@ -15,6 +39,24 @@ With a proper Go setup, a
     $ go get github.com/miku/ntto/cmd/ntto
 
 should work as well.
+
+Usage
+-----
+
+    $ ntto 
+    Usage: ntto [OPTIONS] FILE
+      -a=false: abbreviate n-triples using rules
+      -c=false: dump constructed sed command and exit
+      -cpuprofile="": write cpu profile to file
+      -d=false: dump rules and exit
+      -i=false: ignore conversion errors
+      -j=false: convert nt to json
+      -n="<NULL>": string to indicate empty string replacement
+      -o="": output file to write result to
+      -r="": path to rules file, use built-in if none given
+      -v=false: prints current version and exits
+      -w=4: parallelism measure
+
 
 Mode of operation
 -----------------
@@ -50,46 +92,3 @@ Example rules file
     schema          http://schema.org/
     dc              http://purl.org/dc/elements/1.1/
     dcterms         http://purl.org/dc/terms/
-
-Usage
------
-
-    $ ntto
-    Usage: ntto [OPTIONS] FILE
-      -c=false: dump constructed sed command and exit
-      -cpuprofile="": write cpu profile to file
-      -d=false: dump rules and exit
-      -n="<NULL>": string to indicate empty string replacement
-      -o="": output file to write result to
-      -r="": path to rules file, use built-in if none given
-      -v=false: prints current version and exits
-      -w=4: number of sed processes
-
-Example conversion
-------------------
-
-Before:
-
-    <http://d-nb.info/gnd/1-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://d-nb.info/standards/elementset/gnd#SeriesOfConferenceOrEvent> .
-    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "1-2" .
-    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#oldAuthorityNumber> "(DE-588b)1-2" .
-    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#variantNameForTheConferenceOrEvent> "Conferentie van Niet-Kernwapenstaten" .
-    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#variantNameForTheConferenceOrEvent> "Conference on Non-Nuclear Weapon States" .
-    <http://d-nb.info/gnd/1-2> <http://d-nb.info/standards/elementset/gnd#preferredNameForTheConferenceOrEvent> "Conference of Non-Nuclear Weapon States" .
-    <http://d-nb.info/gnd/2-4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://d-nb.info/standards/elementset/gnd#ConferenceOrEvent> .
-    <http://d-nb.info/gnd/2-4> <http://d-nb.info/standards/elementset/gnd#gndIdentifier> "2-4" .
-    <http://d-nb.info/gnd/2-4> <http://d-nb.info/standards/elementset/gnd#oldAuthorityNumber> "(DE-588b)2-4" .
-    ...
-
-After:
-
-    <gnd:1-2> <rdf:type> <dnbes:SeriesOfConferenceOrEvent> .
-    <gnd:1-2> <dnbes:gndIdentifier> "1-2" .
-    <gnd:1-2> <dnbes:oldAuthorityNumber> "(DE-588b)1-2" .
-    <gnd:1-2> <dnbes:variantNameForTheConferenceOrEvent> "Conferentie van Niet-Kernwapenstaten" .
-    <gnd:1-2> <dnbes:variantNameForTheConferenceOrEvent> "Conference on Non-Nuclear Weapon States" .
-    <gnd:1-2> <dnbes:preferredNameForTheConferenceOrEvent> "Conference of Non-Nuclear Weapon States" .
-    <gnd:2-4> <rdf:type> <dnbes:ConferenceOrEvent> .
-    <gnd:2-4> <dnbes:gndIdentifier> "2-4" .
-    <gnd:2-4> <dnbes:oldAuthorityNumber> "(DE-588b)2-4" .
-    ...

@@ -60,6 +60,34 @@ func IsNamedNode(s string) bool {
 	return strings.HasPrefix(s, "_:")
 }
 
+// Simplistic NTriples parser
+func ParseNTriple(line string) (*Triple, error) {
+	line = strings.TrimSpace(line)
+	words := strings.Fields(line)
+	if len(words) < 3 {
+		return nil, errors.New(fmt.Sprintf("Broken input: %s\n", words))
+	}
+	var s, p, o string
+
+	s = words[0]
+	p = words[1]
+
+	if len(words) <= 4 {
+		o = words[2]
+	} else if len(words) > 4 {
+		if strings.HasSuffix(line, ".") {
+			o = strings.Join(words[2:len(words)-1], " ")
+		} else {
+			o = strings.Join(words[2:len(words)], " ")
+		}
+	}
+	s = strings.Trim(s, "<>\"")
+	p = strings.Trim(p, "<>\"")
+	o = strings.Trim(o, "<>\"")
+	triple := Triple{Subject: s, Predicate: p, Object: o}
+	return &triple, nil
+}
+
 // ParseAbbreviations takes a string, parse the abbreviations and returns them as slice
 func ParseRules(s string) ([]Rule, error) {
 	var rules []Rule

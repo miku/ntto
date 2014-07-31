@@ -1,16 +1,52 @@
 package main
 
 import (
+	"bufio"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/miku/ntto"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"runtime"
 	"runtime/pprof"
+	"sync"
+	"time"
 )
+
+func Worker(queue chan *string, out chan *ntto.Triple, wg *sync.WaitGroup, ignore *bool) {
+	defer wg.Done()
+	for b := range queue {
+		triple, err := ntto.ParseNTriple(*b)
+		if err != nil {
+			if !*ignore {
+				log.Fatalln(err)
+			} else {
+				log.Println(err)
+			}
+		}
+		out <- triple
+	}
+}
+
+func Marshaller(writer io.Writer, in chan *ntto.Triple, done chan bool, ignore *bool) {
+	for triple := range in {
+		b, err := json.Marshal(triple)
+		if err != nil {
+			if !*ignore {
+				log.Fatalln(err)
+			} else {
+				log.Println(err)
+			}
+		}
+		writer.Write(b)
+		writer.Write([]byte("\n"))
+	}
+	done <- true
+}
 
 func main() {
 
@@ -26,16 +62,21 @@ func main() {
 		os.Exit(1)
 	}
 
+	abbreviate := flag.Bool("a", false, "abbreviate n-triples using rules")
 	cpuprofile := flag.String("cpuprofile", "", "write cpu profile to file")
-	version := flag.Bool("v", false, "prints current version and exits")
-	dumpRules := flag.Bool("d", false, "dump rules and exit")
 	dumpCommand := flag.Bool("c", false, "dump constructed sed command and exit")
-	rulesFile := flag.String("r", "", "path to rules file, use built-in if none given")
-	outFile := flag.String("o", "", "output file to write result to")
+	dumpRules := flag.Bool("d", false, "dump rules and exit")
+	ignore := flag.Bool("i", false, "ignore conversion errors")
+	jsonOutput := flag.Bool("j", false, "convert nt to json")
 	nullValue := flag.String("n", "<NULL>", "string to indicate empty string replacement")
-	workers := flag.Int("w", runtime.NumCPU(), "number of sed processes")
+	outFile := flag.String("o", "", "output file to write result to")
+	rulesFile := flag.String("r", "", "path to rules file, use built-in if none given")
+	version := flag.Bool("v", false, "prints current version and exits")
+	numWorkers := flag.Int("w", runtime.NumCPU(), "parallelism measure")
 
 	flag.Parse()
+
+	runtime.GOMAXPROCS(*numWorkers)
 
 	var PrintUsage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [OPTIONS] FILE\n", os.Args[0])
@@ -85,33 +126,84 @@ func main() {
 	}
 
 	filename := flag.Args()[0]
-	var output string
 
-	if *outFile == "" {
-		tmp, err := ioutil.TempFile("", "ntto-")
-		output = tmp.Name()
-		fmt.Fprintf(os.Stderr, "Writing to %s\n", output)
+	if *abbreviate {
+		var output string
+
+		if *outFile == "" {
+			tmp, err := ioutil.TempFile("", "ntto-")
+			output = tmp.Name()
+			fmt.Fprintf(os.Stderr, "Writing to %s\n", output)
+			if err != nil {
+				log.Fatalln(err)
+			}
+		} else {
+			output = *outFile
+		}
+
+		var command string
+		if executive == "perl" {
+			command = fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *numWorkers, filename, *nullValue), output)
+		} else {
+			command = fmt.Sprintf("%s > %s", ntto.ReplacifyNull(rules, filename, *nullValue), output)
+		}
+		if *dumpCommand {
+			fmt.Println(command)
+			os.Exit(0)
+		}
+		_, err = exec.Command("sh", "-c", command).Output()
 		if err != nil {
 			log.Fatalln(err)
 		}
-	} else {
-		output = *outFile
+		// set filename to abbreviated output, so we can use combine -j -a
+		filename = output
 	}
 
-	var command string
-	if executive == "perl" {
-		command = fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *workers, filename, *nullValue), output)
-	} else {
-		command = fmt.Sprintf("%s > %s", ntto.ReplacifyNull(rules, filename, *nullValue), output)
-	}
+	if *jsonOutput {
+		var file *os.File
+		if filename == "-" {
+			file = os.Stdin
+		} else {
+			file, err = os.Open(filename)
+			defer file.Close()
+			if err != nil {
+				log.Fatalln(err)
+			}
+		}
 
-	if *dumpCommand {
-		fmt.Println(command)
-		os.Exit(0)
-	}
+		queue := make(chan *string)
+		results := make(chan *ntto.Triple)
+		done := make(chan bool)
 
-	_, err = exec.Command("sh", "-c", command).Output()
-	if err != nil {
-		log.Fatalln(err)
+		writer := bufio.NewWriter(os.Stdout)
+		defer writer.Flush()
+		go Marshaller(writer, results, done, ignore)
+
+		var wg sync.WaitGroup
+		for i := 0; i < *numWorkers; i++ {
+			wg.Add(1)
+			go Worker(queue, results, &wg, ignore)
+		}
+
+		reader := bufio.NewReader(file)
+
+		for {
+			b, _, err := reader.ReadLine()
+			if err != nil || b == nil {
+				break
+			}
+			line := string(b)
+			queue <- &line
+		}
+		close(queue)
+		wg.Wait()
+		close(results)
+		select {
+		case <-time.After(1e9):
+			break
+		case <-done:
+			break
+		}
+
 	}
 }

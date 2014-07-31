@@ -268,3 +268,38 @@ func TestSedify(t *testing.T) {
 		}
 	}
 }
+
+var ParseNTripleTests = []struct {
+	in  string
+	out Triple
+}{
+	{`<http://d-nb.info/gnd/1-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://d-nb.info/standards/elementset/gnd#SeriesOfConferenceOrEvent> .`,
+		Triple{Subject: "http://d-nb.info/gnd/1-2",
+			Predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+			Object:    "http://d-nb.info/standards/elementset/gnd#SeriesOfConferenceOrEvent"}},
+	{`a b c .`,
+		Triple{Subject: "a", Predicate: "b", Object: "c"}},
+	{`a b "the deep blue c" .`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`a <b> "the deep blue c" .`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`<a> <b> "the deep blue c" .`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`<a> <b> <the deep blue c> .`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`<a> <b> <the deep blue c>`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`<a> <b> <the deep blue c>`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+	{`<a>    <b>  <the         deep blue c>`,
+		Triple{Subject: "a", Predicate: "b", Object: "the deep blue c"}},
+}
+
+func TestParseNTriple(t *testing.T) {
+	for _, tt := range ParseNTripleTests {
+		out, _ := ParseNTriple(tt.in)
+		if *out != tt.out {
+			t.Errorf("ParseNTriple(%s) => %+v, want: %+v", tt.in, out, tt.out)
+		}
+	}
+}
