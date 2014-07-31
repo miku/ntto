@@ -6,6 +6,8 @@ Minimal n-triples toolkit. It can:
 * shrink n-triples by applying namespace abbreviations (given some rules)
 * convert n-triples to JSON
 
+[![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
+
 For dump the abbreviation rules, run:
 
     $ ntto -d
@@ -25,9 +27,6 @@ To create an abbreviated JSON file from an NT file while ignoring conversion err
 To create an abbreviated JSON file from an NT file while ignoring conversion errors and using a custom RULES file, run:
 
     $ ntto -r RULES -a -j -i FILE.nt > OUTPUT.NT
-
-
-[![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
 
 Installation
 ------------
