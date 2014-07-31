@@ -37,29 +37,6 @@ func (r Rule) String() string {
 	return fmt.Sprintf("%s\t%s", r.Shortcut, r.Prefix)
 }
 
-func IsURIRef(s string) bool {
-	return strings.HasPrefix(s, "<") && strings.HasSuffix(s, ">")
-}
-
-func IsLiteral(s string) bool {
-	return strings.HasPrefix(s, "\"")
-}
-
-func IsLiteralLanguage(s, language string) bool {
-	if !IsLiteral(s) {
-		return false
-	}
-	if !strings.Contains(s, "@") {
-		return true
-	} else {
-		return strings.Contains(s, "@"+language)
-	}
-}
-
-func IsNamedNode(s string) bool {
-	return strings.HasPrefix(s, "_:")
-}
-
 // Simplistic NTriples parser
 func ParseNTriple(line string) (*Triple, error) {
 	line = strings.TrimSpace(line)
