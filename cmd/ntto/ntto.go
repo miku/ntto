@@ -133,7 +133,7 @@ func main() {
 		if *outFile == "" {
 			tmp, err := ioutil.TempFile("", "ntto-")
 			output = tmp.Name()
-			fmt.Fprintf(os.Stderr, "Writing to %s\n", output)
+			log.Printf("No explicit [-o]utput given, writing to %s\n", output)
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -204,6 +204,9 @@ func main() {
 		case <-done:
 			break
 		}
-
+		// remove abbreviated tempfile output, if possible
+		if *outFile == "" {
+			_ = os.Remove(output)
+		}
 	}
 }
