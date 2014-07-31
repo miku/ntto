@@ -42,7 +42,7 @@ should work as well.
 Usage
 -----
 
-    $ ntto 
+    $ ntto
     Usage: ntto [OPTIONS] FILE
       -a=false: abbreviate n-triples using rules
       -c=false: dump constructed sed command and exit
@@ -55,7 +55,6 @@ Usage
       -r="": path to rules file, use built-in if none given
       -v=false: prints current version and exits
       -w=4: parallelism measure
-
 
 Mode of operation
 -----------------
@@ -89,3 +88,19 @@ Example rules file
     schema          http://schema.org/
     dc              http://purl.org/dc/elements/1.1/
     dcterms         http://purl.org/dc/terms/
+
+Performance data point
+----------------------
+
+    $ wc -l file.nt
+    114171541
+
+    $ time ntto -o output.nt -a file.nt
+    real    1m51.202s
+    user    1m3.626s
+    sys     0m13.602s
+
+    $ time ntto -a -j file.nt > output.nt
+    real    15m47.872s
+    user    16m19.516s
+    sys      2m3.013s
