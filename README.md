@@ -60,13 +60,11 @@ Usage
 Mode of operation
 -----------------
 
-ntto takes a RULES file (alternatively uses some builtin-rules) to abbreviate
-common prefixes in n-triple files.
+`ntto` takes a RULES file (alternatively uses some [hardwired](https://github.com/miku/ntto/blob/master/rules.go) rules) to abbreviate
+common prefixes in a n-triple file. `ntto` does not do the replacements itself, but outsources it to external programs, like `replace` or `perl`.
 
-ntto does not do the replacements itself, but outsources it to external programs.
-
-This will shrink in between 30k and 3M lines per second. The resulting
-files can be up to 50% of the size of the original file.
+With the help of `replace` ntto can shorten up to 3M lines per second. The resulting
+file size can be up to 50% of the size of the original file.
 
 Example rules file
 ------------------
