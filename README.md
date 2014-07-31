@@ -100,7 +100,14 @@ Performance data point
     user    1m3.626s
     sys     0m13.602s
 
-    $ time ntto -a -j file.nt > output.nt
+    $ time ntto -a -j file.nt > output.ldj
     real    15m47.872s
     user    16m19.516s
     sys      2m3.013s
+
+Sometimes, less is more, but YMMV:
+
+    $ time ntto -w 2 -a -j file.nt > output.ldj
+    real    12m3.619s
+    user    15m17.422s
+    sys     2m14.430s
