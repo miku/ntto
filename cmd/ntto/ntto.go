@@ -126,10 +126,9 @@ func main() {
 	}
 
 	filename := flag.Args()[0]
+	var output string
 
 	if *abbreviate {
-		var output string
-
 		if *outFile == "" {
 			tmp, err := ioutil.TempFile("", "ntto-")
 			output = tmp.Name()
