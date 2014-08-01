@@ -8,7 +8,7 @@ Minimal n-triples toolkit. It can:
 
 [![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
 
-For dump the abbreviation rules, run:
+To list the abbreviation rules, run:
 
     $ ntto -d
 
