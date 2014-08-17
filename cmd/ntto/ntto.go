@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/miku/ntto"
 	"io"
 	"io/ioutil"
 	"log"
@@ -15,6 +14,8 @@ import (
 	"runtime/pprof"
 	"sync"
 	"time"
+
+	"github.com/miku/ntto"
 )
 
 func Worker(queue chan *string, out chan *ntto.Triple, wg *sync.WaitGroup, ignore *bool) {
