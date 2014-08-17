@@ -1,8 +1,12 @@
+SHELL := /bin/bash
 TARGETS = ntto
 
 # http://docs.travis-ci.com/user/languages/go/#Default-Test-Script
 test:
 	go get -d && go test -v
+
+imports:
+	goimports -w .
 
 fmt:
 	go fmt ./...
@@ -28,7 +32,8 @@ cover:
 ntto:
 	go build cmd/ntto/ntto.go
 
-# experimental deb building
+# ==== packaging
+
 deb: $(TARGETS)
 	mkdir -p debian/ntto/usr/sbin
 	cp ntto debian/ntto/usr/sbin
@@ -40,16 +45,8 @@ publish: rpm
 	cp ntto-*.rpm $(REPOPATH)
 	createrepo $(REPOPATH)
 
-# rpm building via vagrant -- assume this is the first VM,
-# otherwise there will be port collisions
-SSHCMD = ssh -o StrictHostKeyChecking=no -i vagrant.key vagrant@127.0.0.1 -p 2222
-SCPCMD = scp -o port=2222 -o StrictHostKeyChecking=no -i vagrant.key
-
 rpm: $(TARGETS)
-	mkdir -p $(HOME)/rpmbuild/BUILD
-	mkdir -p $(HOME)/rpmbuild/SOURCES
-	mkdir -p $(HOME)/rpmbuild/SPECS
-	mkdir -p $(HOME)/rpmbuild/RPMS
+	mkdir -p $(HOME)/rpmbuild/{BUILD,SOURCES,SPECS,RPMS}
 	cp ./packaging/ntto.spec $(HOME)/rpmbuild/SPECS
 	cp ntto $(HOME)/rpmbuild/BUILD
 	./packaging/buildrpm.sh ntto
