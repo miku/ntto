@@ -18,15 +18,15 @@ To create an abbreviated NT file from an NT file, run:
 
 To create an abbreviated JSON file from an NT file, run:
 
-    $ ntto -a -j FILE.nt > OUTPUT.NT
+    $ ntto -a -j FILE.nt > OUTPUT.LDJ
 
 To create an abbreviated JSON file from an NT file while ignoring conversion errors, run:
 
-    $ ntto -a -j -i FILE.nt > OUTPUT.NT
+    $ ntto -a -j -i FILE.nt > OUTPUT.LDJ
 
 To create an abbreviated JSON file from an NT file while ignoring conversion errors and using a custom RULES file, run:
 
-    $ ntto -r RULES -a -j -i FILE.nt > OUTPUT.NT
+    $ ntto -r RULES -a -j -i FILE.nt > OUTPUT.LDJ
 
 Installation
 ------------
