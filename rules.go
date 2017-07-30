@@ -163,7 +163,7 @@ go          http://purl.org/obo/owl/GO#
 grs         http://www.georss.org/georss/
 hlisting    http://www.openlinksw.com/schemas/hlisting/
 hoovers     http://wwww.hoovers.com/
-hrev        http:/www.purl.org/stuff/hrev#
+hrev        http://www.purl.org/stuff/hrev#
 ical        http://www.w3.org/2002/12/cal/ical#
 ir          http://web-semantics.org/ns/image-regions/
 itunes      http://www.itunes.com/DTDs/Podcast-1.0.dtd
@@ -200,7 +200,7 @@ protseq     http://purl.org/science/protein/bysequence/
 r           http://backend.userland.com/rss2/
 radio       http://www.radiopop.co.uk/
 rev         http://purl.org/stuff/rev#
-review      http:/www.purl.org/stuff/rev#
+review      http://www.purl.org/stuff/rev#
 rss         http://purl.org/rss/1.0/
 sc          http://purl.org/science/owl/sciencecommons/
 scovo       http://purl.org/NET/scovo#
