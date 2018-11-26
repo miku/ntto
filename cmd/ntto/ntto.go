@@ -51,10 +51,10 @@ func Marshaller(writer io.Writer, in chan *ntto.Triple, done chan bool, ignore *
 
 func main() {
 
-	executive := "replace"
+	executable := "replace"
 	_, err := exec.LookPath("replace")
 	if err != nil {
-		executive = "perl"
+		executable = "perl"
 	}
 
 	_, err = exec.LookPath("perl")
@@ -142,7 +142,7 @@ func main() {
 		}
 
 		var command string
-		if executive == "perl" {
+		if executable == "perl" {
 			command = fmt.Sprintf("%s > %s", ntto.SedifyNull(rules, *numWorkers, filename, *nullValue), output)
 		} else {
 			command = fmt.Sprintf("%s > %s", ntto.ReplacifyNull(rules, filename, *nullValue), output)
