@@ -42,7 +42,7 @@ func ParseNTriple(line string) (*Triple, error) {
 	line = strings.TrimSpace(line)
 	words := strings.Fields(line)
 	if len(words) < 3 {
-		return nil, errors.New(fmt.Sprintf("Broken input: %s\n", words))
+		return nil, errors.New(fmt.Sprintf("broken input: %s", words))
 	}
 	var s, p, o string
 
@@ -76,7 +76,7 @@ func ParseRules(s string) ([]Rule, error) {
 		}
 		fields := strings.Fields(line)
 		if len(fields) < 2 {
-			err = errors.New(fmt.Sprintf("Broken rule: %s", line))
+			err = errors.New(fmt.Sprintf("broken rule: %s", line))
 			break
 		}
 		rules = append(rules, Rule{Prefix: fields[1], Shortcut: fields[0]})
