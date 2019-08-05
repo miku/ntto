@@ -1,6 +1,8 @@
 ntto
 ====
 
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+
 Minimal n-triples toolkit. It can:
 
 * shrink n-triples by applying namespace abbreviations (given some rules)
