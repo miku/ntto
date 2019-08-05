@@ -18,7 +18,7 @@ var ParseRulesTests = []struct {
 		nil},
 
 	{`a hello
-      // just a comment  
+      // just a comment
       b world`,
 		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
 			Rule{Prefix: "world", Shortcut: "b"}},
@@ -36,7 +36,7 @@ var ParseRulesTests = []struct {
 
       // do not mix, unless you have to
       # just a comment
-      
+
       b world`,
 		[]Rule{Rule{Prefix: "hello", Shortcut: "a"},
 			Rule{Prefix: "world", Shortcut: "b"}},
@@ -46,10 +46,10 @@ var ParseRulesTests = []struct {
 
       // do not mix, unless you have to
       # just a comment
-      
+
       b world`,
 		[]Rule{},
-		errors.New("Broken rule: a")},
+		errors.New("broken rule: a")},
 }
 
 func TestParseRules(t *testing.T) {
