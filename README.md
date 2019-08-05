@@ -8,8 +8,6 @@ Minimal n-triples toolkit. It can:
 * shrink n-triples by applying namespace abbreviations (given some rules)
 * convert n-triples to line delimited JSON (.ldj)
 
-[![Build Status](http://img.shields.io/travis/miku/ntto.svg?style=flat)](https://travis-ci.org/miku/ntto)
-
 To list the abbreviation rules, run:
 
     $ ntto -d
