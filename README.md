@@ -44,17 +44,22 @@ Usage
 
     $ ntto
     Usage: ntto [OPTIONS] FILE
-      -a=false: abbreviate n-triples using rules
-      -c=false: dump constructed sed command and exit
-      -cpuprofile="": write cpu profile to file
-      -d=false: dump rules and exit
-      -i=false: ignore conversion errors
-      -j=false: convert nt to json
-      -n="<NULL>": string to indicate empty string replacement
-      -o="": output file to write result to
-      -r="": path to rules file, use built-in if none given
-      -v=false: prints current version and exits
-      -w=4: parallelism measure
+      -a    abbreviate n-triples using rules
+      -c    dump constructed sed command and exit
+      -cpuprofile string
+            write cpu profile to file
+      -d    dump rules and exit
+      -i    ignore conversion errors
+      -j    convert nt to json
+      -n string
+            string to indicate empty string replacement (default "<NULL>")
+      -o string
+            output file to write result to
+      -r string
+            path to rules file, use built-in if none given
+      -v    prints current version and exits
+      -w int
+            parallelism measure (default 4)
 
 Mode of operation
 -----------------
